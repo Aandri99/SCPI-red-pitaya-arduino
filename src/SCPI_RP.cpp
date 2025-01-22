@@ -12,9 +12,6 @@
 #include "SCPI_RP.h"
 #include "common/base_io.h"
 
-SCPIRedPitaya::SCPIRedPitaya(){
-}
+SCPIRedPitaya::SCPIRedPitaya() {}
 
-uint64_t SCPIRedPitaya::readDNA(){
-  return 0;
-}
+uint64_t SCPIRedPitaya::readDNA() { return 0; }

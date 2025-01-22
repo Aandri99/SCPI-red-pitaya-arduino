@@ -26,7 +26,6 @@ public:
    *  @return DNA value
    */
   uint64_t readDNA();
-
 };
 
 #endif
