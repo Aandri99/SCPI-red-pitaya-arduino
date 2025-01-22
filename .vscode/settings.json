@@ -1,0 +1,22 @@
+{
+      "editor.formatOnSave": true,
+      "clang-format.executable": "clang-format",
+      "files.autoSave": "onFocusChange",
+      "files.trimTrailingWhitespace": true,
+      "files.insertFinalNewline": true,
+      "notebook.defaultFormatter": "ms-vscode.cpptools",
+      "editor.formatOnPaste": true,
+      "C_Cpp.formatting": "clangFormat",
+      "notebook.formatOnSave.enabled": true,
+      "editor.defaultFormatter": "ms-vscode.cpptools",
+      "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit"
+      },
+      "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+      },
+      "C_Cpp.vcFormat.indent.accessSpecifiers": true,
+      "C_Cpp.vcFormat.indent.braces": true,
+      "C_Cpp.clang_format_fallbackStyle": "LLVM",
+
+}

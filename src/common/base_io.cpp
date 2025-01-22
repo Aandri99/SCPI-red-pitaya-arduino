@@ -29,6 +29,7 @@ const ReadData BaseIO::ese_q(uint32_t _timeout_ms) {
   auto sendSize = strlen((const char *)command);
   auto size = write(command, sendSize, _timeout_ms);
   if (size != (sendSize + 2)) {
+
     return ReadData();
   }
   return read(_timeout_ms);
