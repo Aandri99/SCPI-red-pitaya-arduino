@@ -5,13 +5,14 @@
 // - SCPI Red Pitaya Library:
 // https://github.com/RedPitaya/SCPI-red-pitaya-arduino
 
-#include "SCPI_RP.h"
 #include <Arduino.h>
+
+#include "SCPI_RP.h"
 
 #if defined(ARDUINO_ARCH_AVR)
 #include <SoftwareSerial.h>
-SoftwareSerial uart(8, 9); // Initializes line 8 as RX and line 9 as TX for SCPI
-                           // communication via UART
+SoftwareSerial uart(8, 9);  // Initializes line 8 as RX and line 9 as TX for
+                            // SCPI communication via UART
 #endif
 
 #define BUFF_SIZE 30
@@ -25,14 +26,14 @@ void setup() {
 #if defined(ARDUINO_ARCH_AVR)
   uart.begin(RED_PITAYA_UART_RATE);
   rp.initUARTStream(&uart);
-#elif defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_SAMD) ||             \
+#elif defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_SAMD) || \
     defined(ARDUINO_ARCH_SAM)
   Serial1.begin(RED_PITAYA_UART_RATE);
   rp.initUARTStream(&Serial1);
 #endif
 
   char name[BUFF_SIZE];
-  if (!rp.system.boardNameQ(name, BUFF_SIZE)) { // Request name from RP
+  if (!rp.system.boardNameQ(name, BUFF_SIZE)) {  // Request name from RP
     Serial.println("Error getting board name from RP");
   } else {
     Serial.print("Board name: ");
@@ -40,7 +41,7 @@ void setup() {
   }
 
   uint32_t board_id;
-  if (!rp.system.boardIDQ(&board_id)) { // Request id from RP
+  if (!rp.system.boardIDQ(&board_id)) {  // Request id from RP
     Serial.println("Error getting board ID from RP");
   } else {
     Serial.print("ID: ");

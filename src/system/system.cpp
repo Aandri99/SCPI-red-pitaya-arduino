@@ -1,4 +1,5 @@
 #include "system.h"
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,12 +30,9 @@ bool scpi_rp::setSYSLog(BaseIO *io, ESYSLog mode) {
 
 bool scpi_rp::setSYSTime(BaseIO *io, uint8_t hour, uint8_t min, uint8_t sec) {
   char buffer[3];
-  if (hour > 23)
-    return false;
-  if (min > 59)
-    return false;
-  if (sec > 59)
-    return false;
+  if (hour > 23) return false;
+  if (min > 59) return false;
+  if (sec > 59) return false;
 
   constexpr char cmd[] = "SYSTem:TIME \"";
   if (!io->writeStr(cmd)) {
@@ -75,8 +73,7 @@ bool scpi_rp::getSYSTime(BaseIO *io, uint8_t *hour, uint8_t *min,
     *hour = x;
     *min = y;
     *sec = z;
-    if (ret != 3)
-      return false;
+    if (ret != 3) return false;
     return true;
   }
   return false;
@@ -124,8 +121,7 @@ bool scpi_rp::getSYSDate(BaseIO *io, uint16_t *year, uint8_t *month,
     *year = x;
     *month = y;
     *day = z;
-    if (ret != 3)
-      return false;
+    if (ret != 3) return false;
     return true;
   }
   return false;

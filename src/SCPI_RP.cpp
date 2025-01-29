@@ -10,6 +10,7 @@
  */
 
 #include "SCPI_RP.h"
+
 #include "common/base_io.h"
 #include "uart/uart.h"
 

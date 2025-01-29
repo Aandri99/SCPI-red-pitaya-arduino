@@ -28,6 +28,6 @@ bool getStb(BaseIO *io, uint8_t *_value);
 bool getErr_c(BaseIO *io, uint16_t *_value);
 bool getErr_n(BaseIO *io, char *name, scpi_size size);
 
-} // namespace scpi_rp
+}  // namespace scpi_rp
 
 #endif

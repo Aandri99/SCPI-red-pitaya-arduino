@@ -1,17 +1,17 @@
 #ifndef UART_H
 #define UART_H
 
+#include <Stream.h>
+#include <stdint.h>
+
 #include "common/base_io.h"
 #include "common/structs.h"
 #include "uart_protocol.h"
-#include <Stream.h>
-#include <stdint.h>
 
 namespace scpi_rp {
 
 class UARTInterface : public BaseIO {
-
-public:
+ public:
   UARTInterface();
   ~UARTInterface();
 
@@ -31,13 +31,13 @@ public:
    */
   scpi_size write(const uint8_t *_data, scpi_size _size) override;
 
-private:
+ private:
   scpi_size readToBuffer() override;
 
   Stream *m_uart;
   UARTProtocol m_protocol;
 };
 
-} // namespace scpi_rp
+}  // namespace scpi_rp
 
 #endif

@@ -1,7 +1,9 @@
 #include "base_io.h"
-#include "Arduino.h"
+
 #include <stdio.h>
 #include <string.h>
+
+#include "Arduino.h"
 
 using namespace scpi_rp;
 
@@ -52,8 +54,7 @@ int BaseIO::fillBuffer() {
 const Value BaseIO::readStr() {
   Value value;
   int end = fillBuffer();
-  if (end == -1)
-    return value;
+  if (end == -1) return value;
   if (m_buffer[m_bufferReadPos] == '\"' && m_buffer[end - 1] == '\"') {
     m_buffer[end - 1] = '\0';
     value.value = (const char *)(m_buffer + m_bufferReadPos + 1);
@@ -67,8 +68,7 @@ const Value BaseIO::readStr() {
 const Value BaseIO::read() {
   Value value;
   int end = fillBuffer();
-  if (end == -1)
-    return value;
+  if (end == -1) return value;
   m_buffer[end] = '\0';
   value.value = (const char *)(m_buffer + m_bufferReadPos);
   value.size = end - m_bufferReadPos;

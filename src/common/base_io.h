@@ -1,15 +1,16 @@
 #ifndef BASE_IO_H
 #define BASE_IO_H
 
-#include "structs.h"
 #include <stdint.h>
+
+#include "structs.h"
 
 namespace scpi_rp {
 /**
  Base input/output class
 */
 class BaseIO {
-public:
+ public:
   /**
    * Default constructor - setting all variabels to default values
    */
@@ -41,7 +42,7 @@ public:
 
   scpi_size write(const char *_data, scpi_size _size);
 
-protected:
+ protected:
   int checkParamSeparator();
   int checkCommandSeparator();
   int fillBuffer();
@@ -53,6 +54,6 @@ protected:
   scpi_size m_bufferReadPos = 0;
 };
 
-} // namespace scpi_rp
+}  // namespace scpi_rp
 
 #endif

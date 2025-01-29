@@ -1,4 +1,5 @@
 #include "uart_protocol.h"
+
 #include <stdio.h>
 #include <string.h>
 
@@ -22,11 +23,10 @@ auto UARTProtocol::crc4(uint8_t *data, uint8_t size) -> uint8_t {
   return crc;
 }
 
-auto UARTProtocol::readBlock(Stream *uart, uint8_t *buffer, scpi_size size)
-    -> scpi_size {
+auto UARTProtocol::readBlock(Stream *uart, uint8_t *buffer,
+                             scpi_size size) -> scpi_size {
   uint8_t header = 0;
-  while (uart->available() == 0)
-    ;
+  while (uart->available() == 0);
   uint8_t ret = uart->readBytes(&header, 1);
   if (ret != 1) {
     DEBUG_UP("Error reading header size %d\n", ret);
@@ -37,8 +37,7 @@ auto UARTProtocol::readBlock(Stream *uart, uint8_t *buffer, scpi_size size)
     DEBUG_UP("Block size %d is larger than buffer size %d\n", readSize, size);
     return 0;
   }
-  while (uart->available() != readSize)
-    ;
+  while (uart->available() != readSize);
   ret = uart->readBytes(buffer, readSize);
   if (ret != readSize) {
     DEBUG_UP("Buffer read error. Read size %d\n", ret);

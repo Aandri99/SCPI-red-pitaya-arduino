@@ -1,45 +1,7 @@
 {
-      "editor.formatOnSave": true,
-      "clang-format.executable": "clang-format",
-      "files.autoSave": "onFocusChange",
-      "files.trimTrailingWhitespace": true,
-      "files.insertFinalNewline": true,
-      "notebook.defaultFormatter": "ms-vscode.cpptools",
-      "editor.formatOnPaste": true,
-      "C_Cpp.formatting": "clangFormat",
-      "notebook.formatOnSave.enabled": true,
-      "editor.defaultFormatter": "ms-vscode.cpptools",
-      "editor.codeActionsOnSave": {
-        "source.fixAll": "explicit"
-      },
-      "[cpp]": {
-        "editor.defaultFormatter": "ms-vscode.cpptools",
-      },
-      "C_Cpp.vcFormat.indent.accessSpecifiers": true,
-      "C_Cpp.vcFormat.indent.braces": true,
-      "C_Cpp.clang_format_fallbackStyle": "LLVM",
-      "files.associations": {
-        "cstdarg": "cpp",
-        "cstdio": "cpp",
-        "cstring": "cpp",
-        "cstdint": "cpp",
-        "array": "cpp",
-        "string_view": "cpp",
-        "initializer_list": "cpp",
-        "string": "cpp",
-        "*.tcc": "cpp",
-        "random": "cpp",
-        "memory": "cpp",
-        "functional": "cpp",
-        "tuple": "cpp",
-        "utility": "cpp",
-        "limits": "cpp",
-        "deque": "cpp",
-        "unordered_map": "cpp",
-        "vector": "cpp",
-        "typeinfo": "cpp",
-        "*.ino": "cpp",
-        "type_traits": "cpp"
-      },
-
+  "editor.formatOnSave": true,
+  "C_Cpp.formatting": "clangFormat",
+  "C_Cpp.clang_format_path": "/usr/bin/clang-format", // Path to clang-format executable
+  "C_Cpp.clang_format_style": "file",
+  "C_Cpp.clang_format_fallbackStyle": "Google", // Use .clang-format file in your project
 }

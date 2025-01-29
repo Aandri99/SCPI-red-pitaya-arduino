@@ -12,19 +12,19 @@
 #ifndef SCPI_RP_SYSTEM_H
 #define SCPI_RP_SYSTEM_H
 
+#include <stdint.h>
+
 #include "common/base_io.h"
 #include "system/system_enums.h"
-#include <stdint.h>
 
 namespace scpi_rp {
 /*!
  *  Class that stores state and functions for SCPI server
  */
 class SCPISystem {
-
-public:
-  SCPISystem() {};
-  ~SCPISystem() {};
+ public:
+  SCPISystem(){};
+  ~SCPISystem(){};
 
   /*!
    *  Enables scpi-server log output mode.
@@ -236,11 +236,11 @@ public:
 
   friend class SCPIRedPitaya;
 
-private:
+ private:
   void setInterface(BaseIO *io);
   BaseIO *m_io = nullptr;
 };
 
-} // namespace scpi_rp
+}  // namespace scpi_rp
 
 #endif

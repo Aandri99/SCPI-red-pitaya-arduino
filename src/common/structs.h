@@ -9,7 +9,7 @@ namespace scpi_rp {
 #define SCPI_PARAM_SEPARATOR ','
 #define SCPI_BINARY_HEADER "#"
 
-// #define DEBUG_UART_PROTOCOL
+#define DEBUG_UART_PROTOCOL
 
 #define BASE_IO_BUFFER_SIZE 128
 
@@ -35,14 +35,12 @@ struct Value {
 // };
 
 #ifdef DEBUG_UART_PROTOCOL
-#define DEBUG_UP(...)                                                          \
-  {                                                                            \
-    printf(__VA_ARGS__);                                                       \
-  }
+#define DEBUG_UP(...) \
+  { printf(__VA_ARGS__); }
 #else
 #define DEBUG_UP(...)
 #endif
 
-} // namespace scpi_rp
+}  // namespace scpi_rp
 
 #endif

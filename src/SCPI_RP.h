@@ -12,9 +12,10 @@
 #ifndef SCPI_RP_H
 #define SCPI_RP_H
 
-#include "scpi/scpi_rp_system.h"
 #include <Stream.h>
 #include <stdint.h>
+
+#include "scpi/scpi_rp_system.h"
 
 #define RED_PITAYA_UART_RATE 115200
 
@@ -23,7 +24,7 @@ namespace scpi_rp {
  *  Class that stores state and functions for SCPI server
  */
 class SCPIRedPitaya {
-public:
+ public:
   SCPIRedPitaya();
   ~SCPIRedPitaya();
 
@@ -35,6 +36,6 @@ public:
   SCPISystem system;
 };
 
-} // namespace scpi_rp
+}  // namespace scpi_rp
 
 #endif

@@ -5,13 +5,14 @@
 // - SCPI Red Pitaya Library:
 // https://github.com/RedPitaya/SCPI-red-pitaya-arduino
 
-#include "SCPI_RP.h"
 #include <Arduino.h>
+
+#include "SCPI_RP.h"
 
 #if defined(ARDUINO_ARCH_AVR)
 #include <SoftwareSerial.h>
-SoftwareSerial uart(8, 9); // Initializes line 8 as RX and line 9 as TX for SCPI
-                           // communication via UART
+SoftwareSerial uart(8, 9);  // Initializes line 8 as RX and line 9 as TX for
+                            // SCPI communication via UART
 #endif
 
 #define BUFF_SIZE 30
@@ -25,7 +26,7 @@ void setup() {
 #if defined(ARDUINO_ARCH_AVR)
   uart.begin(RED_PITAYA_UART_RATE);
   rp.initUARTStream(&uart);
-#elif defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_SAMD) ||             \
+#elif defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_SAMD) || \
     defined(ARDUINO_ARCH_SAM)
   Serial1.begin(RED_PITAYA_UART_RATE);
   rp.initUARTStream(&Serial1);
@@ -33,7 +34,7 @@ void setup() {
 
   uint16_t year;
   uint8_t month, day;
-  if (!rp.system.dateQ(&year, &month, &day)) { // Request date from RP
+  if (!rp.system.dateQ(&year, &month, &day)) {  // Request date from RP
     Serial.print("Error getting date from RP");
   } else {
     Serial.print("Year: ");
@@ -45,7 +46,7 @@ void setup() {
   }
 
   uint8_t hour, min, sec;
-  if (!rp.system.timeQ(&hour, &min, &sec)) { // Request time from RP
+  if (!rp.system.timeQ(&hour, &min, &sec)) {  // Request time from RP
     Serial.print("Error getting time from RP");
   } else {
     Serial.print("Hour: ");
