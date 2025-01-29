@@ -54,12 +54,12 @@ const Value BaseIO::readStr() {
   int end = fillBuffer();
   if (end == -1)
     return value;
-  if (m_buffer[m_bufferReadPos] == "\"" && m_buffer[end - 1] == "\"") {
+  if (m_buffer[m_bufferReadPos] == '\"' && m_buffer[end - 1] == '\"') {
     m_buffer[end - 1] = '\0';
-    value.value = m_buffer + m_bufferReadPos + 1;
+    value.value = (const char *)(m_buffer + m_bufferReadPos + 1);
     value.size = end - m_bufferReadPos;
     value.isValid = true;
-    value.next_value = m_buffer[end] == "," ? end + 1 : end + 2;
+    value.next_value = m_buffer[end] == ',' ? end + 1 : end + 2;
   }
   return value;
 }
@@ -70,10 +70,10 @@ const Value BaseIO::read() {
   if (end == -1)
     return value;
   m_buffer[end] = '\0';
-  value.value = m_buffer + m_bufferReadPos;
+  value.value = (const char *)(m_buffer + m_bufferReadPos);
   value.size = end - m_bufferReadPos;
   value.isValid = true;
-  value.next_value = m_buffer[end] == "," ? end + 1 : end + 2;
+  value.next_value = m_buffer[end] == ',' ? end + 1 : end + 2;
   return value;
 }
 
@@ -99,4 +99,8 @@ void BaseIO::flushCommand(scpi_size value) {
   memmove(m_buffer, m_buffer + next_block, m_bufferSize - next_block);
   m_bufferReadPos = 0;
   m_bufferSize = m_bufferSize - next_block;
+}
+
+scpi_size BaseIO::write(const char *_data, scpi_size _size) {
+  return write((const uint8_t *)_data, _size);
 }

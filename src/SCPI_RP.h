@@ -13,6 +13,7 @@
 #define SCPI_RP_H
 
 #include "scpi/scpi_rp_system.h"
+#include <SoftwareSerial.h>
 #include <stdint.h>
 
 namespace scpi_rp {
@@ -26,10 +27,9 @@ public:
 
   /*!
    *  Initializes uart interface with specified RX,TX lines
-   *  @param rx RX line number
-   *  @param tx TX line number
+   *  @param serial UART interface.
    */
-  void initUart(uint8_t rx, uint8_t tx);
+  void initUart(SoftwareSerial *serial);
 
   SCPISystem system;
 };

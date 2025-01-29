@@ -7,17 +7,6 @@
 
 #include "SCPI_RP.h"
 
-scpi_rp::SCPIRedPitaya rp;
-FILE f_out;
-int sput(char c, __attribute__((unused)) FILE *f) { return !Serial.write(c); }
-
-void setup() {
-  Serial.begin(115200);
-  fdev_setup_stream(&f_out, sput, nullptr, _FDEV_SETUP_WRITE);
-  stdout = &f_out;
-  rp.initUart(8, 9);
-  auto dna = rp.readDNA();
-  printf("DNA %d\n", dna);
-}
+void setup() {}
 
 void loop() {}

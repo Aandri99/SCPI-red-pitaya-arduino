@@ -6,7 +6,7 @@
 namespace scpi_rp {
 
 #define SCPI_COMMAND_SEPARATOR "\r\n"
-#define SCPI_PARAM_SEPARATOR ","
+#define SCPI_PARAM_SEPARATOR ','
 #define SCPI_BINARY_HEADER "#"
 
 // #define DEBUG_UART_PROTOCOL
@@ -56,7 +56,9 @@ struct Value {
 
 #ifdef DEBUG_UART_PROTOCOL
 #define DEBUG_UP(...)                                                          \
-  { printf(__VA_ARGS__); }
+  {                                                                            \
+    printf(__VA_ARGS__);                                                       \
+  }
 #else
 #define DEBUG_UP(...)
 #endif

@@ -6,9 +6,11 @@
 // https://github.com/RedPitaya/SCPI-red-pitaya-arduino
 
 #include "SCPI_RP.h"
+#include <SoftwareSerial.h>
 
 #define BUFF_SIZE 30
 
+SoftwareSerial uart(8, 9);
 scpi_rp::SCPIRedPitaya rp;
 FILE f_out;
 int sput(char c, __attribute__((unused)) FILE *f) { return !Serial.write(c); }
@@ -21,7 +23,7 @@ void setup() {
   stdout = &f_out;
 
   // Initializes line 8 as RX and line 9 as TX for SCPI communication via UART
-  rp.initUart(8, 9);
+  rp.initUart(&uart);
 
   char name[BUFF_SIZE];
   if (!rp.system.boardNameQ(name, BUFF_SIZE)) { // Request name from RP

@@ -39,6 +39,8 @@ public:
    */
   virtual scpi_size write(const uint8_t *_data, scpi_size _size) = 0;
 
+  scpi_size write(const char *_data, scpi_size _size);
+
 protected:
   int checkParamSeparator();
   int checkCommandSeparator();
