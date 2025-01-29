@@ -161,3 +161,168 @@ bool scpi_rp::getSYSBoardName(BaseIO *io, char *name, scpi_size size) {
   }
   return false;
 }
+
+bool scpi_rp::setCls(BaseIO *io) {
+  constexpr char cmd[] = "*CLS\r\n";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  return true;
+}
+
+bool scpi_rp::setEse(BaseIO *io, uint8_t _value) {
+  char buffer[3];
+  constexpr char cmd[] = "*ESE {";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  itoa(_value, buffer, 10);
+  if (!io->writeStr(buffer)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  constexpr char param[] = "}\r\n";
+  return io->writeStr(param);
+}
+
+bool scpi_rp::getEse(BaseIO *io, uint8_t *_value) {
+  constexpr char cmd[] = "*ESE?\r\n";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  auto value = io->read();
+  if (value.isValid) {
+    *_value = atoi(value.value);
+    io->flushCommand(value.next_value);
+    return true;
+  }
+  return false;
+}
+
+bool scpi_rp::getEsr(BaseIO *io, uint8_t *_value) {
+  constexpr char cmd[] = "*ESR?\r\n";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  auto value = io->read();
+  if (value.isValid) {
+    *_value = atoi(value.value);
+    io->flushCommand(value.next_value);
+    return true;
+  }
+  return false;
+}
+
+bool scpi_rp::setOpc(BaseIO *io) {
+  constexpr char cmd[] = "*OPC\r\n";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  return true;
+}
+
+bool scpi_rp::getOpc(BaseIO *io, uint8_t *_value) {
+  constexpr char cmd[] = "*OPC?\r\n";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  auto value = io->read();
+  if (value.isValid) {
+    *_value = atoi(value.value);
+    io->flushCommand(value.next_value);
+    return true;
+  }
+  return false;
+}
+
+bool scpi_rp::setRst(BaseIO *io) {
+  constexpr char cmd[] = "*RST\r\n";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  return true;
+}
+
+bool scpi_rp::setSre(BaseIO *io, uint8_t _value) {
+  char buffer[3];
+  constexpr char cmd[] = "*SRE {";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  itoa(_value, buffer, 10);
+  if (!io->writeStr(buffer)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  constexpr char param[] = "}\r\n";
+  return io->writeStr(param);
+}
+
+bool scpi_rp::getSre(BaseIO *io, uint8_t *_value) {
+  constexpr char cmd[] = "*SRE?\r\n";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  auto value = io->read();
+  if (value.isValid) {
+    *_value = atoi(value.value);
+    io->flushCommand(value.next_value);
+    return true;
+  }
+  return false;
+}
+
+bool scpi_rp::getStb(BaseIO *io, uint8_t *_value) {
+  constexpr char cmd[] = "*STB?\r\n";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  auto value = io->read();
+  if (value.isValid) {
+    *_value = atoi(value.value);
+    io->flushCommand(value.next_value);
+    return true;
+  }
+  return false;
+}
+
+bool scpi_rp::getErr_c(BaseIO *io, uint16_t *_value) {
+  constexpr char cmd[] = "SYST:ERR:COUNt?\r\n";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  auto value = io->read();
+  if (value.isValid) {
+    *_value = atoi(value.value);
+    io->flushCommand(value.next_value);
+    return true;
+  }
+  return false;
+}
+
+bool scpi_rp::getErr_n(BaseIO *io, char *name, scpi_size size) {
+  constexpr char cmd[] = "SYST:ERR:NEXT?r\n";
+  if (!io->writeStr(cmd)) {
+    io->write("\r\n", 2);
+    return false;
+  }
+  auto value = io->read();
+  if (value.isValid) {
+    memset(name, 0, size);
+    strncpy(name, value.value, value.size < size - 1 ? value.size : size - 1);
+    io->flushCommand(value.next_value);
+    return true;
+  }
+  return false;
+}

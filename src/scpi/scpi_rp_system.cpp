@@ -58,3 +58,75 @@ bool SCPISystem::boardNameQ(char *buffer, uint16_t size) {
     return false;
   return getSYSBoardName(m_io, buffer, size);
 }
+
+bool SCPISystem::cls() {
+  if (m_io == nullptr)
+    return false;
+  return setCls(m_io);
+}
+
+bool SCPISystem::ese(uint8_t value) {
+  if (m_io == nullptr)
+    return false;
+  return setEse(m_io, value);
+}
+
+bool SCPISystem::eseQ(uint8_t *value) {
+  if (m_io == nullptr)
+    return false;
+  return getEse(m_io, value);
+}
+
+bool SCPISystem::esrQ(uint8_t *value) {
+  if (m_io == nullptr)
+    return false;
+  return getEsr(m_io, value);
+}
+
+bool SCPISystem::opc() {
+  if (m_io == nullptr)
+    return false;
+  return setOpc(m_io);
+}
+
+bool SCPISystem::opcQ(uint8_t *value) {
+  if (m_io == nullptr)
+    return false;
+  return getOpc(m_io, value);
+}
+
+bool SCPISystem::rst() {
+  if (m_io == nullptr)
+    return false;
+  return setRst(m_io);
+}
+
+bool SCPISystem::sre(uint8_t value) {
+  if (m_io == nullptr)
+    return false;
+  return setSre(m_io, value);
+}
+
+bool SCPISystem::sreQ(uint8_t *value) {
+  if (m_io == nullptr)
+    return false;
+  return getSre(m_io, value);
+}
+
+bool SCPISystem::stbQ(uint8_t *value) {
+  if (m_io == nullptr)
+    return false;
+  return getStb(m_io, value);
+}
+
+bool SCPISystem::errCountQ(uint16_t *value) {
+  if (m_io == nullptr)
+    return false;
+  return getErr_c(m_io, value);
+}
+
+bool SCPISystem::errNextQ(char *name, scpi_size size) {
+  if (m_io == nullptr)
+    return false;
+  return getErr_n(m_io, name, size);
+}

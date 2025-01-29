@@ -95,6 +95,145 @@ public:
    */
   bool boardNameQ(char *buffer, uint16_t size);
 
+  // IEEE Mandated Commands
+
+  /**
+   * The Clear Status (CLS) command clears the status byte by emptying the
+   error
+   * queue and clearing all the event registers including the Data
+   Questionable
+   * Event Register, the Standard Event Status Register, the Standard
+   Operation
+   * Status Register and any other registers that are summarized in the
+   status
+   * byte.
+   *
+   * The SCPI server does not return any data.
+   *
+   *  @return Returns true if the command was called successfully, returns false
+   * for any other problems
+   *
+   */
+  bool cls();
+
+  /**
+   * Selects the desired bits from the standard event status enable register.
+   * The variable <_value> represents the sum of the bits that will be
+   enabled.
+   * This register monitors I/O errors and synchronization conditions such as
+   * operation complete, request control, query error, device dependent
+   error,
+   * status execution error, command error and power on. The selected bits
+   are
+   * OR’d to become a summary bit (bit 5) in the byte register which can be
+   * queried.
+   *
+   * The SCPI server does not return any data.
+   *
+   * @param value  Range: 0-255
+   * @return Returns true if the command was called successfully, returns false
+   * for any other problems
+   *
+   */
+  bool ese(uint8_t value);
+
+  /**
+   * The Standard Event Status Enable (ESE) query returns the value of
+   * the Standard Event Status Enable Register.
+   * @param value  Range: 0-255
+   * @return Returns true if the command was called successfully, returns
+   * false for any other problems
+   */
+  bool eseQ(uint8_t *value);
+
+  /**
+   * The Standard Event Status Register (ESR) query returns the value of
+   * the Standard Event Status Register.
+   * @param value  Range: 0-255
+   * @return Returns true if the command was called successfully, returns
+   * false for any other problems
+   */
+  bool esrQ(uint8_t *value);
+
+  /**
+   * The Operation Complete (OPC) command sets bit 0 in the Standard Event
+   * Status Register when all pending operations have finished.
+   * @return Returns true if the command was called successfully, returns
+   * false for any other problems
+   */
+  bool opc();
+
+  /**
+   * The Operation Complete (OPC) query returns the ASCII character 1 in
+   * the Standard Event Status Register when all pending operations have
+   * finished. This query stops any new commands from being processed until
+   the
+   * current processing is complete.
+   * @param value  Range: 0-255
+   * @return Returns true if the command was called successfully, returns
+   * false for any other problems
+   */
+  bool opcQ(uint8_t *value);
+
+  /**
+   * This reset (RST) command resets most functions to factory-defined
+   * conditions. Each command shows *RST value if the setting is affected.
+   * @return Returns true if the command was called successfully, returns
+   * false for any other problems
+   */
+  bool rst();
+
+  /**
+   * The Service Request Enable (SRE) command sets the value of the Service
+   * Request Enable Register. The variable <_value> is the decimal sum of the
+   * bits that will be enabled. Bit 6 (value 64) is ignored and cannot be set
+   by
+   * this command.
+   *
+   * @param _value  Range: 0–255
+   *                Entering values from 64 to 127 is equivalent to entering
+   * values from 0 to 63.
+   * @return Returns true if the command was called successfully, returns
+   * false for any other problems
+   */
+  bool sre(uint8_t value);
+
+  /**
+   * The Service Request Enable (SRE) query returns the value of the Service
+   * Request Enable Register. Range: 0–63 or 128–191
+   */
+  bool sreQ(uint8_t *value);
+
+  /**
+   * The Read Status Byte (STB) query returns the value of the status byte
+   * including the master summary status (MSS) bit without erasing its
+   contents.
+   * Range: 0–255
+   * @param value  Range: 0–255
+   * @return Returns true if the command was called successfully, returns
+   * false for any other problems
+   */
+  bool stbQ(uint8_t *value);
+
+  /**
+   * Returns the number of errors in the error stack.
+   * @param value  Error count
+   * @return Returns true if the command was called successfully, returns
+   * false for any other problems
+   */
+  bool errCountQ(uint16_t *value);
+
+  /**
+   * Returns the command execution error from the error stack.
+   *  @param buffer Buffer to fill with error name in string format. Ends with
+   * '\0'
+   *  @param size The size of the buffer being transferred. If the buffer is not
+   * enough, the data will be truncated.
+   *  @return Returns true if the command was called successfully, returns false
+   * for any other problems
+   */
+  bool errNextQ(char *name, scpi_size size);
+
   friend class SCPIRedPitaya;
 
 private:
