@@ -21,9 +21,8 @@ SCPIRedPitaya::SCPIRedPitaya() {}
 
 SCPIRedPitaya::~SCPIRedPitaya() { delete g_base_io; }
 
-void SCPIRedPitaya::initUart(SoftwareSerial *serial) {
-  serial->begin(UART_RATE);
-  UART *u = new UART();
+void SCPIRedPitaya::initUARTStream(Stream *serial) {
+  UARTInterface *u = new UARTInterface();
   u->init(serial);
   g_base_io = u;
   system.setInterface(u);

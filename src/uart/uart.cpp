@@ -4,16 +4,16 @@
 
 using namespace scpi_rp;
 
-UART::UART() {}
+UARTInterface::UARTInterface() {}
 
-UART ::~UART() {}
+UARTInterface ::~UARTInterface() {}
 
-int UART::init(SoftwareSerial *uart) {
+int UARTInterface::init(Stream *uart) {
   m_uart = uart;
   return 0;
 }
 
-scpi_size UART::write(const uint8_t *_data, scpi_size _size) {
+scpi_size UARTInterface::write(const uint8_t *_data, scpi_size _size) {
   scpi_size pos = 0;
   scpi_size s = _size;
   while (pos < _size) {
@@ -24,7 +24,7 @@ scpi_size UART::write(const uint8_t *_data, scpi_size _size) {
   return pos;
 }
 
-scpi_size UART::readToBuffer() {
+scpi_size UARTInterface::readToBuffer() {
   if (BASE_IO_BUFFER_SIZE - m_bufferSize < UART_PROTO_BLOCK_SIZE) {
     DEBUG_UP("Not enough memory in buffer")
     return 0;

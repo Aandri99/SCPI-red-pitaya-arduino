@@ -6,36 +6,54 @@
 // https://github.com/RedPitaya/SCPI-red-pitaya-arduino
 
 #include "SCPI_RP.h"
-#include <SoftwareSerial.h>
+#include <Arduino.h>
 
-SoftwareSerial uart(8, 9);
+#if defined(ARDUINO_ARCH_AVR)
+#include <SoftwareSerial.h>
+SoftwareSerial uart(8, 9); // Initializes line 8 as RX and line 9 as TX for SCPI
+                           // communication via UART
+#endif
+
+#define BUFF_SIZE 30
+
 scpi_rp::SCPIRedPitaya rp;
-FILE f_out;
-int sput(char c, __attribute__((unused)) FILE *f) { return !Serial.write(c); }
 
 void setup() {
   // Initializing console output
   Serial.begin(115200);
-  // Replacing standard output for the printf command
-  fdev_setup_stream(&f_out, sput, nullptr, _FDEV_SETUP_WRITE);
-  stdout = &f_out;
 
-  // Initializes line 8 as RX and line 9 as TX for SCPI communication via UART
-  rp.initUart(&uart);
+#if defined(ARDUINO_ARCH_AVR)
+  uart.begin(RED_PITAYA_UART_RATE);
+  rp.initUARTStream(&uart);
+#elif defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_SAMD) ||             \
+    defined(ARDUINO_ARCH_SAM)
+  Serial1.begin(RED_PITAYA_UART_RATE);
+  rp.initUARTStream(&Serial1);
+#endif
 
   uint16_t year;
   uint8_t month, day;
   if (!rp.system.dateQ(&year, &month, &day)) { // Request date from RP
-    printf("Error getting date from RP\n");
+    Serial.print("Error getting date from RP");
   } else {
-    printf("Year: %d Month: %02d Day: %02d\n", year, month, day);
+    Serial.print("Year: ");
+    Serial.print(year);
+    Serial.print(" Month: ");
+    Serial.print(month);
+    Serial.print(" Day: ");
+    Serial.println(day);
   }
 
   uint8_t hour, min, sec;
   if (!rp.system.timeQ(&hour, &min, &sec)) { // Request time from RP
-    printf("Error getting time from RP\n");
+    Serial.print("Error getting time from RP");
   } else {
-    printf("Hour: %02d Minute: %02d Second: %02d\n", hour, min, sec);
+    Serial.print("Hour: ");
+    Serial.print(hour);
+    Serial.print(" Minute: ");
+    Serial.print(min);
+    Serial.print(" Second: ");
+    Serial.println(sec);
   }
 }
 

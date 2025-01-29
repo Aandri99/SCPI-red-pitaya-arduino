@@ -11,29 +11,9 @@ namespace scpi_rp {
 
 // #define DEBUG_UART_PROTOCOL
 
-#define UART_RATE 115200
-
 #define BASE_IO_BUFFER_SIZE 128
 
 #define scpi_size uint16_t
-
-/**
- Structure with return values ​​from the server
-*/
-struct ReadData {
-  const uint8_t *data = nullptr;
-  scpi_size size = 0;
-};
-
-struct ReadData16Bytes {
-  uint8_t data[16];
-  uint8_t size = 0;
-};
-
-// template <typename T> struct Value {
-//   bool isValid;
-//   T value;
-// };
 
 /**
  Structure wrapper for a string.

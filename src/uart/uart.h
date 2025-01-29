@@ -4,22 +4,22 @@
 #include "common/base_io.h"
 #include "common/structs.h"
 #include "uart_protocol.h"
-#include <SoftwareSerial.h>
+#include <Stream.h>
 #include <stdint.h>
 
 namespace scpi_rp {
 
-class UART : public BaseIO {
+class UARTInterface : public BaseIO {
 
 public:
-  UART();
-  ~UART();
+  UARTInterface();
+  ~UARTInterface();
 
   /**
    * The function reads the value from the server. Excluding the command
    * separator.
    */
-  int init(SoftwareSerial *uart);
+  int init(Stream *uart);
 
   /**
    * The function sends data to the server.
@@ -34,7 +34,7 @@ public:
 private:
   scpi_size readToBuffer() override;
 
-  SoftwareSerial *m_uart;
+  Stream *m_uart;
   UARTProtocol m_protocol;
 };
 

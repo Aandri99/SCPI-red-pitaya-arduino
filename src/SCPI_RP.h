@@ -13,8 +13,10 @@
 #define SCPI_RP_H
 
 #include "scpi/scpi_rp_system.h"
-#include <SoftwareSerial.h>
+#include <Stream.h>
 #include <stdint.h>
+
+#define RED_PITAYA_UART_RATE 115200
 
 namespace scpi_rp {
 /*!
@@ -26,10 +28,9 @@ public:
   ~SCPIRedPitaya();
 
   /*!
-   *  Initializes uart interface with specified RX,TX lines
-   *  @param serial UART interface.
+   *  @param serial Stream for UART interface.
    */
-  void initUart(SoftwareSerial *serial);
+  void initUARTStream(Stream *serial);
 
   SCPISystem system;
 };
