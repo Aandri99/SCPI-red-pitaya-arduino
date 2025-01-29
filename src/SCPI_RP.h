@@ -12,20 +12,28 @@
 #ifndef SCPI_RP_H
 #define SCPI_RP_H
 
+#include "scpi/scpi_rp_system.h"
 #include <stdint.h>
 
+namespace scpi_rp {
 /*!
- *  @brief  Class that stores state and functions for DHT
+ *  Class that stores state and functions for SCPI server
  */
 class SCPIRedPitaya {
 public:
   SCPIRedPitaya();
+  ~SCPIRedPitaya();
 
   /*!
-   *  @brief  Returns the DNA code value from the Zynq processor
-   *  @return DNA value
+   *  Initializes uart interface with specified RX,TX lines
+   *  @param rx RX line number
+   *  @param tx TX line number
    */
-  uint64_t readDNA();
+  void initUart(uint8_t rx, uint8_t tx);
+
+  SCPISystem system;
 };
+
+} // namespace scpi_rp
 
 #endif
