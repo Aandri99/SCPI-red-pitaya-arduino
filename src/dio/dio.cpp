@@ -170,6 +170,7 @@ bool scpi_rp::getDIODir(BaseIO *io, EDIOPin pin, EDIODir *dir) {
     io->writeCommandSeparator();
     return readDir();
   }
+  return false;
 }
 
 bool scpi_rp::setDIOState(BaseIO *io, EDIOPin pin, bool state) {
@@ -309,4 +310,5 @@ bool scpi_rp::getDIOState(BaseIO *io, EDIOPin pin, bool *state) {
     io->writeStr(SCPI_COMMAND_SEPARATOR);
     return readDir();
   }
+  return false;
 }

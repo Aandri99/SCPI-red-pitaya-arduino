@@ -67,8 +67,8 @@ bool scpi_rp::getSYSTime(BaseIO *io, uint8_t *hour, uint8_t *min,
   }
   auto value = io->read();
   if (value.isValid) {
-    uint32_t x, y, z;
-    int ret = sscanf(value.value, "%u:%u:%u", &x, &y, &z);
+    int x, y, z;
+    int ret = sscanf(value.value, "%d:%d:%d", &x, &y, &z);
     io->flushCommand(value.next_value);
     *hour = x;
     *min = y;
@@ -115,8 +115,8 @@ bool scpi_rp::getSYSDate(BaseIO *io, uint16_t *year, uint8_t *month,
   }
   auto value = io->read();
   if (value.isValid) {
-    uint32_t x, y, z;
-    int ret = sscanf(value.value, "%u-%u-%u", &x, &y, &z);
+    int x, y, z;
+    int ret = sscanf(value.value, "%d-%d-%d", &x, &y, &z);
     io->flushCommand(value.next_value);
     *year = x;
     *month = y;

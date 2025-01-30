@@ -15,6 +15,7 @@
 #include <Stream.h>
 #include <stdint.h>
 
+#include "scpi/scpi_rp_aio.h"
 #include "scpi/scpi_rp_dio.h"
 #include "scpi/scpi_rp_system.h"
 
@@ -36,6 +37,7 @@ class SCPIRedPitaya {
 
   SCPISystem system;
   SCPIDio dio;
+  SCPIAio aio;
 };
 
 }  // namespace scpi_rp
