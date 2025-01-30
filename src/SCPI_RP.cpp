@@ -27,4 +27,5 @@ void SCPIRedPitaya::initUARTStream(Stream *serial) {
   u->init(serial);
   g_base_io = u;
   system.setInterface(u);
+  dio.setInterface(u);
 }

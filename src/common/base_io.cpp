@@ -51,6 +51,10 @@ int BaseIO::fillBuffer() {
   return end;
 }
 
+bool BaseIO::writeCommandSeparator() {
+  return writeStr(SCPI_COMMAND_SEPARATOR);
+}
+
 const Value BaseIO::readStr() {
   Value value;
   int end = fillBuffer();

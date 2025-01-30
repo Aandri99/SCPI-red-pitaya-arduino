@@ -15,9 +15,10 @@
 #include <Stream.h>
 #include <stdint.h>
 
+#include "scpi/scpi_rp_dio.h"
 #include "scpi/scpi_rp_system.h"
 
-#define RED_PITAYA_UART_RATE 115200
+#define RED_PITAYA_UART_RATE 57600
 
 namespace scpi_rp {
 /*!
@@ -34,6 +35,7 @@ class SCPIRedPitaya {
   void initUARTStream(Stream *serial);
 
   SCPISystem system;
+  SCPIDio dio;
 };
 
 }  // namespace scpi_rp

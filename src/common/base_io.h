@@ -27,6 +27,8 @@ class BaseIO {
 
   bool writeStr(const char *_data);
 
+  bool writeCommandSeparator();
+
   void flush();
   void flushCommand(scpi_size value);
 
