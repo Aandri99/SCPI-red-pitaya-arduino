@@ -1,9 +1,14 @@
 #include "aio.h"
 
+#include <Arduino.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if defined(ARDUINO_ARCH_SAMD) || defined(ARDUINO_ARCH_SAM)
+#include <avr/dtostrf.h>
+#endif
 
 using namespace scpi_rp;
 
@@ -18,8 +23,8 @@ bool scpi_rp::setAIORst(BaseIO *io) {
 
 bool scpi_rp::setAIOValue(BaseIO *io, EAIOPin pin, float value) {
   auto writeState = [&](float value) {
-    char buffer[10];
-    snprintf(buffer, sizeof(buffer), ",%f", value);
+    char buffer[8];
+    dtostrf(value, 6, 3, buffer);
     if (!io->writeStr(buffer)) {
       io->writeStr(SCPI_COMMAND_SEPARATOR);
       return false;
@@ -28,7 +33,7 @@ bool scpi_rp::setAIOValue(BaseIO *io, EAIOPin pin, float value) {
   };
 
   if (pin < AOUT_0 || pin > AOUT_3) return false;
-  if (value < 0 || value > 1.8f) return false;
+  if (value < 0 || round(value * 10) > 18) return false;
 
   constexpr char cmd[] = "ANALOG:PIN ";
   char buffer[3];
@@ -41,8 +46,12 @@ bool scpi_rp::setAIOValue(BaseIO *io, EAIOPin pin, float value) {
     io->writeStr(SCPI_COMMAND_SEPARATOR);
     return false;
   }
-  itoa(pin, buffer, 10);
+  itoa(pin - AOUT_0, buffer, 10);
   if (!io->writeStr(buffer)) {
+    io->writeStr(SCPI_COMMAND_SEPARATOR);
+    return false;
+  }
+  if (!io->writeStr(",")) {
     io->writeStr(SCPI_COMMAND_SEPARATOR);
     return false;
   }

@@ -24,6 +24,7 @@ scpi_rp::SCPIRedPitaya rp;
 
 bool last_state = 0;
 uint8_t led_state = 0;
+uint8_t led_state_new = 0;
 
 void setup() {
   // Initializing console output
@@ -41,11 +42,13 @@ void setup() {
   rp.dio.dir(scpi_rp::DIO_0_P, scpi_rp::OUT);
   rp.dio.dir(scpi_rp::DIO_0_N, scpi_rp::IN);
   rp.dio.state(scpi_rp::DIO_0_P, true);
+  for (uint8_t i = scpi_rp::LED_0; i <= scpi_rp::LED_7; i++) {
+    rp.dio.state((scpi_rp::EDIOPin)(i), false);
+  }
 }
 
 void loop() {
   bool state = 0;
-  uint8_t led_state_new;
   if (!rp.dio.stateQ(scpi_rp::DIO_0_N, &state)) {
     Serial.println("Error get state");
   }
@@ -57,7 +60,7 @@ void loop() {
     for (uint8_t i = scpi_rp::LED_0; i <= scpi_rp::LED_7; i++) {
       rp.dio.state((scpi_rp::EDIOPin)(i), (1 << i) & led_state_new);
     }
-    led_state_new = led_state;
+    led_state = led_state_new;
   }
   delay(100);
 }
