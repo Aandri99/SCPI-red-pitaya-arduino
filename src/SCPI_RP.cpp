@@ -31,4 +31,5 @@ void SCPIRedPitaya::initUARTStream(Stream *serial) {
   aio.setInterface(u);
   daisy.setInterface(u);
   pll.setInterface(u);
+  system_led.setInterface(u);
 }

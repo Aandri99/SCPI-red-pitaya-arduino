@@ -108,3 +108,31 @@ void BaseIO::flushCommand(scpi_size value) {
 scpi_size BaseIO::write(const char *_data, scpi_size _size) {
   return write((const uint8_t *)_data, _size);
 }
+
+bool BaseIO::writeOnOff(bool state) {
+  if (state) {
+    constexpr char param[] = "ON\r\n";
+    return writeStr(param);
+  } else {
+    constexpr char param[] = "OFF\r\n";
+    return writeStr(param);
+  }
+  return false;
+}
+
+bool BaseIO::readOnOff(bool *state) {
+  auto value = read();
+  if (value.isValid) {
+    if (strcmp(value.value, "ON") == 0) {
+      *state = true;
+    } else if (strcmp(value.value, "OFF") == 0) {
+      *state = false;
+    } else {
+      flushCommand(value.next_value);
+      return false;
+    }
+    flushCommand(value.next_value);
+    return true;
+  }
+  return false;
+}

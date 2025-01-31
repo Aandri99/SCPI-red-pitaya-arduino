@@ -46,7 +46,7 @@ bool scpi_rp::setDIODir(BaseIO *io, EDIOPin pin, EDIODir dir) {
     return false;
   }
   writedir(dir);
-  if (pin >= LED_0 && pin <= LED_7) {
+  if (pin <= LED_7) {
     if (!io->writeStr(",LED")) {
       io->writeCommandSeparator();
       return false;
@@ -121,7 +121,7 @@ bool scpi_rp::getDIODir(BaseIO *io, EDIOPin pin, EDIODir *dir) {
     io->writeCommandSeparator();
     return false;
   }
-  if (pin >= LED_0 && pin <= LED_7) {
+  if (pin <= LED_7) {
     if (!io->writeStr("LED")) {
       io->writeCommandSeparator();
       return false;
@@ -187,7 +187,7 @@ bool scpi_rp::setDIOState(BaseIO *io, EDIOPin pin, bool state) {
     io->writeStr(SCPI_COMMAND_SEPARATOR);
     return false;
   }
-  if (pin >= LED_0 && pin <= LED_7) {
+  if (pin <= LED_7) {
     if (!io->writeStr("LED")) {
       io->writeStr(SCPI_COMMAND_SEPARATOR);
       return false;
@@ -261,7 +261,7 @@ bool scpi_rp::getDIOState(BaseIO *io, EDIOPin pin, bool *state) {
     io->writeStr(SCPI_COMMAND_SEPARATOR);
     return false;
   }
-  if (pin >= LED_0 && pin <= LED_7) {
+  if (pin <= LED_7) {
     if (!io->writeStr("LED")) {
       io->writeStr(SCPI_COMMAND_SEPARATOR);
       return false;

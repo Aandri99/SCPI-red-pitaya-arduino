@@ -76,7 +76,7 @@ bool scpi_rp::getAIOValue(BaseIO *io, EAIOPin pin, float *_value) {
     return false;
   }
 
-  if (pin >= AIN_0 && pin <= AIN_3) {
+  if (pin <= AIN_3) {
     if (!io->writeStr("AIN")) {
       io->writeStr(SCPI_COMMAND_SEPARATOR);
       return false;

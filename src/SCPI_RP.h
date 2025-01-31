@@ -20,6 +20,7 @@
 #include "scpi/scpi_rp_dio.h"
 #include "scpi/scpi_rp_pll.h"
 #include "scpi/scpi_rp_system.h"
+#include "scpi/scpi_rp_system_led.h"
 
 #define RED_PITAYA_UART_RATE 57600
 
@@ -42,6 +43,7 @@ class SCPIRedPitaya {
   SCPIDio dio;
   SCPIPll pll;
   SCPISystem system;
+  SCPISystemLed system_led;
 };
 
 }  // namespace scpi_rp
