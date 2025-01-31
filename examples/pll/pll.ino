@@ -32,7 +32,7 @@ void setup() {
   rp.initUARTStream(&Serial1);
 #endif
 
-  bool state;
+  bool state = false;
   if (!rp.pll.enable(true)) {
     Serial.println("Error set value");
   }
@@ -45,7 +45,7 @@ void setup() {
 }
 
 void loop() {
-  bool state;
+  bool state = false;
   if (!rp.pll.stateQ(&state)) {
     Serial.println("Error get state");
   }

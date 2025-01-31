@@ -95,7 +95,7 @@ void BaseIO::flush() {
 }
 
 void BaseIO::flushCommand(scpi_size value) {
-  int next_block = value;
+  scpi_size next_block = value;
   if (m_bufferSize <= next_block) {
     flush();
     return;
