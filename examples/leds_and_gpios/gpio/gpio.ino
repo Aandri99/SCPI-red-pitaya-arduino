@@ -36,6 +36,19 @@ void setup() {
   rp.dio.rst();
   rp.dio.dir(scpi_rp::DIO_2_P, scpi_rp::OUT);
   rp.dio.dir(scpi_rp::DIO_2_N, scpi_rp::IN);
+  scpi_rp::EDIODir dir;
+  if (!rp.dio.dirQ(scpi_rp::DIO_2_P, &dir)) {
+    Serial.println("Error get dir");
+  } else {
+    Serial.print("DIO_2_P dir = ");
+    Serial.println(dir);
+  }
+  if (!rp.dio.dirQ(scpi_rp::DIO_2_N, &dir)) {
+    Serial.println("Error get dir");
+  } else {
+    Serial.print("DIO_2_N dir = ");
+    Serial.println(dir);
+  }
 }
 
 void loop() {

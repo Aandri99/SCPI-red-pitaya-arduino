@@ -101,9 +101,9 @@ bool scpi_rp::getDIODir(BaseIO *io, EDIOPin pin, EDIODir *dir) {
   auto readDir = [&]() {
     auto value = io->read();
     if (value.isValid) {
-      if (strcmp(value.value, "IN")) {
+      if (strcmp(value.value, "IN") == 0) {
         *dir = EDIODir::IN;
-      } else if (strcmp(value.value, "OUT")) {
+      } else if (strcmp(value.value, "OUT") == 0) {
         *dir = EDIODir::OUT;
       } else {
         io->flushCommand(value.next_value);
@@ -241,9 +241,9 @@ bool scpi_rp::getDIOState(BaseIO *io, EDIOPin pin, bool *state) {
   auto readDir = [&]() {
     auto value = io->read();
     if (value.isValid) {
-      if (!strcmp(value.value, "1")) {
+      if (!strcmp(value.value, "1") == 0) {
         *state = true;
-      } else if (!strcmp(value.value, "0")) {
+      } else if (!strcmp(value.value, "0") == 0) {
         *state = false;
       } else {
         io->flushCommand(value.next_value);

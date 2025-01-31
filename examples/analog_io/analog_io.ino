@@ -40,19 +40,19 @@ void setup() {
 
 void loop() {
   float in_value = 0;
-  if (value > 1.8) value = 1.8;
+  if (round(value * 10) > 18) value = 0;
   if (!rp.aio.state(scpi_rp::AOUT_0, value)) {
     Serial.println("Error set value");
   }
   if (!rp.aio.stateQ(scpi_rp::AOUT_0, &in_value)) {
     Serial.println("Error get value");
   }
-  Serial.print("AOUT_0 value = x");
+  Serial.print("AOUT_0 value = ");
   Serial.println(in_value);
   if (!rp.aio.stateQ(scpi_rp::AIN_0, &in_value)) {
     Serial.println("Error get value");
   }
-  Serial.print("AIN_0 value = x");
+  Serial.print("AIN_0 value = ");
   Serial.println(in_value);
   delay(1000);
   value += 0.1;

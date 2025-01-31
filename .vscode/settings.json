@@ -5,6 +5,7 @@
   "C_Cpp.clang_format_style": "file",
   "C_Cpp.clang_format_fallbackStyle": "Google",
   "files.associations": {
-    "cmath": "cpp"
+    "cmath": "cpp",
+    "type_traits": "cpp"
   }, // Use .clang-format file in your project
 }
