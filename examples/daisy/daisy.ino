@@ -41,7 +41,7 @@ void setup() {
 #endif
 
   bool state;
-  scpi_rp::EDAISYMode mode;
+  scpi_rp::EDAISYMode mode = scpi_rp::DAISY_ADC;
 
   if (!rp.daisy.syncTrigger(true)) {
     Serial.println("Error set value");
