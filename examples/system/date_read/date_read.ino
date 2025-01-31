@@ -1,5 +1,7 @@
 // Example of a test sketch for reading date and time from Red Pitaya board via
-// SCPI server. Written by Nikolay Danilyuk
+// SCPI server.
+
+// Written by Nikolay Danilyuk
 
 // REQUIRES the following Arduino libraries:
 // - SCPI Red Pitaya Library:
@@ -14,8 +16,6 @@
 SoftwareSerial uart(8, 9);  // Initializes line 8 as RX and line 9 as TX for
                             // SCPI communication via UART
 #endif
-
-#define BUFF_SIZE 30
 
 scpi_rp::SCPIRedPitaya rp;
 

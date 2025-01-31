@@ -3,5 +3,9 @@
   "C_Cpp.formatting": "clangFormat",
   "C_Cpp.clang_format_path": "/usr/bin/clang-format", // Path to clang-format executable
   "C_Cpp.clang_format_style": "file",
-  "C_Cpp.clang_format_fallbackStyle": "Google", // Use .clang-format file in your project
+  "C_Cpp.clang_format_fallbackStyle": "Google",
+  "files.associations": {
+    "cmath": "cpp",
+    "type_traits": "cpp"
+  }, // Use .clang-format file in your project
 }

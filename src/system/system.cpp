@@ -10,7 +10,7 @@ using namespace scpi_rp;
 bool scpi_rp::setSYSLog(BaseIO *io, ESYSLog mode) {
   constexpr char cmd[] = "RP:LOGmode ";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   if (mode == ESYSLog::OFF) {
@@ -36,7 +36,7 @@ bool scpi_rp::setSYSTime(BaseIO *io, uint8_t hour, uint8_t min, uint8_t sec) {
 
   constexpr char cmd[] = "SYSTem:TIME \"";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   itoa(hour, buffer, 10);
@@ -46,13 +46,13 @@ bool scpi_rp::setSYSTime(BaseIO *io, uint8_t hour, uint8_t min, uint8_t sec) {
   io->write(":", 1);
   itoa(min, buffer, 10);
   if (!io->writeStr(buffer)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   io->write(":", 1);
   itoa(sec, buffer, 10);
   if (!io->writeStr(buffer)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   return io->write("\"\r\n", 3);
@@ -62,13 +62,13 @@ bool scpi_rp::getSYSTime(BaseIO *io, uint8_t *hour, uint8_t *min,
                          uint8_t *sec) {
   constexpr char cmd[] = "SYSTem:TIME?\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   auto value = io->read();
   if (value.isValid) {
-    uint32_t x, y, z;
-    int ret = sscanf(value.value, "%u:%u:%u", &x, &y, &z);
+    int x, y, z;
+    int ret = sscanf(value.value, "%d:%d:%d", &x, &y, &z);
     io->flushCommand(value.next_value);
     *hour = x;
     *min = y;
@@ -84,7 +84,7 @@ bool scpi_rp::setSYSDate(BaseIO *io, uint16_t year, uint8_t month,
   char buffer[6];
   constexpr char cmd[] = "SYSTem:DATE \"";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   itoa(year, buffer, 10);
@@ -94,13 +94,13 @@ bool scpi_rp::setSYSDate(BaseIO *io, uint16_t year, uint8_t month,
   io->write("-", 1);
   itoa(month, buffer, 10);
   if (!io->writeStr(buffer)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   io->write("-", 1);
   itoa(day, buffer, 10);
   if (!io->writeStr(buffer)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   return io->write("\"\r\n", 3);
@@ -110,13 +110,13 @@ bool scpi_rp::getSYSDate(BaseIO *io, uint16_t *year, uint8_t *month,
                          uint8_t *day) {
   constexpr char cmd[] = "SYSTem:DATE?\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   auto value = io->read();
   if (value.isValid) {
-    uint32_t x, y, z;
-    int ret = sscanf(value.value, "%u-%u-%u", &x, &y, &z);
+    int x, y, z;
+    int ret = sscanf(value.value, "%d-%d-%d", &x, &y, &z);
     io->flushCommand(value.next_value);
     *year = x;
     *month = y;
@@ -130,7 +130,7 @@ bool scpi_rp::getSYSDate(BaseIO *io, uint16_t *year, uint8_t *month,
 bool scpi_rp::getSYSBoardID(BaseIO *io, uint32_t *id) {
   constexpr char cmd[] = "SYSTem:BRD:ID?\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   auto value = io->read();
@@ -145,7 +145,7 @@ bool scpi_rp::getSYSBoardID(BaseIO *io, uint32_t *id) {
 bool scpi_rp::getSYSBoardName(BaseIO *io, char *name, scpi_size size) {
   constexpr char cmd[] = "SYSTem:BRD:Name?\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   auto value = io->read();
@@ -161,7 +161,7 @@ bool scpi_rp::getSYSBoardName(BaseIO *io, char *name, scpi_size size) {
 bool scpi_rp::setCls(BaseIO *io) {
   constexpr char cmd[] = "*CLS\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   return true;
@@ -171,12 +171,12 @@ bool scpi_rp::setEse(BaseIO *io, uint8_t _value) {
   char buffer[3];
   constexpr char cmd[] = "*ESE {";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   itoa(_value, buffer, 10);
   if (!io->writeStr(buffer)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   constexpr char param[] = "}\r\n";
@@ -201,7 +201,7 @@ bool scpi_rp::getEse(BaseIO *io, uint8_t *_value) {
 bool scpi_rp::getEsr(BaseIO *io, uint8_t *_value) {
   constexpr char cmd[] = "*ESR?\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   auto value = io->read();
@@ -216,7 +216,7 @@ bool scpi_rp::getEsr(BaseIO *io, uint8_t *_value) {
 bool scpi_rp::setOpc(BaseIO *io) {
   constexpr char cmd[] = "*OPC\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   return true;
@@ -225,7 +225,7 @@ bool scpi_rp::setOpc(BaseIO *io) {
 bool scpi_rp::getOpc(BaseIO *io, uint8_t *_value) {
   constexpr char cmd[] = "*OPC?\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   auto value = io->read();
@@ -240,7 +240,7 @@ bool scpi_rp::getOpc(BaseIO *io, uint8_t *_value) {
 bool scpi_rp::setRst(BaseIO *io) {
   constexpr char cmd[] = "*RST\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   return true;
@@ -250,12 +250,12 @@ bool scpi_rp::setSre(BaseIO *io, uint8_t _value) {
   char buffer[3];
   constexpr char cmd[] = "*SRE {";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   itoa(_value, buffer, 10);
   if (!io->writeStr(buffer)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   constexpr char param[] = "}\r\n";
@@ -265,7 +265,7 @@ bool scpi_rp::setSre(BaseIO *io, uint8_t _value) {
 bool scpi_rp::getSre(BaseIO *io, uint8_t *_value) {
   constexpr char cmd[] = "*SRE?\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   auto value = io->read();
@@ -280,7 +280,7 @@ bool scpi_rp::getSre(BaseIO *io, uint8_t *_value) {
 bool scpi_rp::getStb(BaseIO *io, uint8_t *_value) {
   constexpr char cmd[] = "*STB?\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   auto value = io->read();
@@ -295,7 +295,7 @@ bool scpi_rp::getStb(BaseIO *io, uint8_t *_value) {
 bool scpi_rp::getErr_c(BaseIO *io, uint16_t *_value) {
   constexpr char cmd[] = "SYST:ERR:COUNt?\r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   auto value = io->read();
@@ -310,7 +310,7 @@ bool scpi_rp::getErr_c(BaseIO *io, uint16_t *_value) {
 bool scpi_rp::getErr_n(BaseIO *io, char *name, scpi_size size) {
   constexpr char cmd[] = "SYST:ERR:NEXT?r\n";
   if (!io->writeStr(cmd)) {
-    io->write("\r\n", 2);
+    io->writeCommandSeparator();
     return false;
   }
   auto value = io->read();

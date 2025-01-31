@@ -1,10 +1,13 @@
-// Example of a test sketch for Read Red Pitaya board name and board family ID.
+// Example for analog input (AI0) and output (AO0). Every second it changes the
+// voltage value and checks them.
 
 // Written by Nikolay Danilyuk
 
 // REQUIRES the following Arduino libraries:
 // - SCPI Red Pitaya Library:
 // https://github.com/RedPitaya/SCPI-red-pitaya-arduino
+
+// Before run test need connect AI0 (E2) <=> AO0 (E2) with wire on Red Pitaya
 
 #include <Arduino.h>
 
@@ -16,9 +19,9 @@ SoftwareSerial uart(8, 9);  // Initializes line 8 as RX and line 9 as TX for
                             // SCPI communication via UART
 #endif
 
-#define BUFF_SIZE 30
-
 scpi_rp::SCPIRedPitaya rp;
+
+float value = 0;
 
 void setup() {
   // Initializing console output
@@ -32,22 +35,25 @@ void setup() {
   Serial1.begin(RED_PITAYA_UART_RATE);
   rp.initUARTStream(&Serial1);
 #endif
-
-  char name[BUFF_SIZE];
-  if (!rp.system.boardNameQ(name, BUFF_SIZE)) {  // Request name from RP
-    Serial.println("Error getting board name from RP");
-  } else {
-    Serial.print("Board name: ");
-    Serial.println(name);
-  }
-
-  uint32_t board_id;
-  if (!rp.system.boardIDQ(&board_id)) {  // Request id from RP
-    Serial.println("Error getting board ID from RP");
-  } else {
-    Serial.print("ID: ");
-    Serial.println(board_id);
-  }
+  rp.aio.rst();
 }
 
-void loop() {}
+void loop() {
+  float in_value = 0;
+  if (round(value * 10) > 18) value = 0;
+  if (!rp.aio.state(scpi_rp::AOUT_0, value)) {
+    Serial.println("Error set value");
+  }
+  if (!rp.aio.stateQ(scpi_rp::AOUT_0, &in_value)) {
+    Serial.println("Error get value");
+  }
+  Serial.print("AOUT_0 value = ");
+  Serial.println(in_value);
+  if (!rp.aio.stateQ(scpi_rp::AIN_0, &in_value)) {
+    Serial.println("Error get value");
+  }
+  Serial.print("AIN_0 value = ");
+  Serial.println(in_value);
+  delay(1000);
+  value += 0.1;
+}

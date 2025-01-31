@@ -25,15 +25,6 @@ struct Value {
   scpi_size next_value = 0;
 };
 
-// /**
-//  Structure wrapper for a string.
-// */
-// struct ValueMnemonic {
-//   bool isValid = false;
-//   const char *value = nullptr;
-//   scpi_size size = 0;
-// };
-
 #ifdef DEBUG_UART_PROTOCOL
 #define DEBUG_UP(...) \
   { printf(__VA_ARGS__); }
