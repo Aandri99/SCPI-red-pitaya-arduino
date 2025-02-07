@@ -5,6 +5,10 @@
 
 #include "Arduino.h"
 
+#if defined(ARDUINO_ARCH_SAMD) || defined(ARDUINO_ARCH_SAM)
+#include <avr/dtostrf.h>
+#endif
+
 using namespace scpi_rp;
 
 BaseIO::BaseIO() {
@@ -135,4 +139,16 @@ bool BaseIO::readOnOff(bool *state) {
     return true;
   }
   return false;
+}
+
+bool BaseIO::writeNumber(int value) {
+  char buffer[10];
+  itoa(value, buffer, 10);
+  return writeStr(buffer);
+}
+
+bool BaseIO::writeNumber(float value, uint8_t pre, uint8_t post) {
+  char buffer[12];
+  dtostrf(value, pre, post, buffer);
+  return writeStr(buffer);
 }

@@ -29,7 +29,6 @@ bool scpi_rp::setSYSLog(BaseIO *io, ESYSLog mode) {
 }
 
 bool scpi_rp::setSYSTime(BaseIO *io, uint8_t hour, uint8_t min, uint8_t sec) {
-  char buffer[3];
   if (hour > 23) return false;
   if (min > 59) return false;
   if (sec > 59) return false;
@@ -39,19 +38,17 @@ bool scpi_rp::setSYSTime(BaseIO *io, uint8_t hour, uint8_t min, uint8_t sec) {
     io->writeCommandSeparator();
     return false;
   }
-  itoa(hour, buffer, 10);
-  if (!io->writeStr(buffer)) {
-    return false;
-  }
-  io->write(":", 1);
-  itoa(min, buffer, 10);
-  if (!io->writeStr(buffer)) {
+  if (!io->writeNumber(hour)) {
     io->writeCommandSeparator();
     return false;
   }
   io->write(":", 1);
-  itoa(sec, buffer, 10);
-  if (!io->writeStr(buffer)) {
+  if (!io->writeNumber(min)) {
+    io->writeCommandSeparator();
+    return false;
+  }
+  io->write(":", 1);
+  if (!io->writeNumber(sec)) {
     io->writeCommandSeparator();
     return false;
   }
@@ -81,25 +78,22 @@ bool scpi_rp::getSYSTime(BaseIO *io, uint8_t *hour, uint8_t *min,
 
 bool scpi_rp::setSYSDate(BaseIO *io, uint16_t year, uint8_t month,
                          uint8_t day) {
-  char buffer[6];
   constexpr char cmd[] = "SYSTem:DATE \"";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
     return false;
   }
-  itoa(year, buffer, 10);
-  if (!io->writeStr(buffer)) {
-    return false;
-  }
-  io->write("-", 1);
-  itoa(month, buffer, 10);
-  if (!io->writeStr(buffer)) {
+  if (!io->writeNumber(year)) {
     io->writeCommandSeparator();
     return false;
   }
   io->write("-", 1);
-  itoa(day, buffer, 10);
-  if (!io->writeStr(buffer)) {
+  if (!io->writeNumber(month)) {
+    io->writeCommandSeparator();
+    return false;
+  }
+  io->write("-", 1);
+  if (!io->writeNumber(day)) {
     io->writeCommandSeparator();
     return false;
   }
@@ -168,14 +162,12 @@ bool scpi_rp::setCls(BaseIO *io) {
 }
 
 bool scpi_rp::setEse(BaseIO *io, uint8_t _value) {
-  char buffer[3];
   constexpr char cmd[] = "*ESE {";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
     return false;
   }
-  itoa(_value, buffer, 10);
-  if (!io->writeStr(buffer)) {
+  if (!io->writeNumber(_value)) {
     io->writeCommandSeparator();
     return false;
   }
@@ -247,14 +239,12 @@ bool scpi_rp::setRst(BaseIO *io) {
 }
 
 bool scpi_rp::setSre(BaseIO *io, uint8_t _value) {
-  char buffer[3];
   constexpr char cmd[] = "*SRE {";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
     return false;
   }
-  itoa(_value, buffer, 10);
-  if (!io->writeStr(buffer)) {
+  if (!io->writeNumber(_value)) {
     io->writeCommandSeparator();
     return false;
   }

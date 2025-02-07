@@ -39,7 +39,6 @@ bool scpi_rp::setDIODir(BaseIO *io, EDIOPin pin, EDIODir dir) {
     return true;
   };
 
-  char buffer[3];
   constexpr char cmd[] = "DIG:PIN:DIR ";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
@@ -51,8 +50,7 @@ bool scpi_rp::setDIODir(BaseIO *io, EDIOPin pin, EDIODir dir) {
       io->writeCommandSeparator();
       return false;
     }
-    itoa(pin, buffer, 10);
-    if (!io->writeStr(buffer)) {
+    if (!io->writeNumber(pin)) {
       io->writeCommandSeparator();
       return false;
     }
@@ -64,8 +62,7 @@ bool scpi_rp::setDIODir(BaseIO *io, EDIOPin pin, EDIODir dir) {
       io->writeCommandSeparator();
       return false;
     }
-    itoa(pin - DIO_0_P, buffer, 10);
-    if (!io->writeStr(buffer)) {
+    if (!io->writeNumber(pin - DIO_0_P)) {
       io->writeCommandSeparator();
       return false;
     }
@@ -81,8 +78,7 @@ bool scpi_rp::setDIODir(BaseIO *io, EDIOPin pin, EDIODir dir) {
       io->writeCommandSeparator();
       return false;
     }
-    itoa(pin - DIO_0_N, buffer, 10);
-    if (!io->writeStr(buffer)) {
+    if (!io->writeNumber(pin - DIO_0_N)) {
       io->writeCommandSeparator();
       return false;
     }
@@ -115,7 +111,6 @@ bool scpi_rp::getDIODir(BaseIO *io, EDIOPin pin, EDIODir *dir) {
     return false;
   };
 
-  char buffer[3];
   constexpr char cmd[] = "DIG:PIN:DIR? ";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
@@ -126,8 +121,7 @@ bool scpi_rp::getDIODir(BaseIO *io, EDIOPin pin, EDIODir *dir) {
       io->writeCommandSeparator();
       return false;
     }
-    itoa(pin, buffer, 10);
-    if (!io->writeStr(buffer)) {
+    if (!io->writeNumber(pin)) {
       io->writeCommandSeparator();
       return false;
     }
@@ -140,8 +134,7 @@ bool scpi_rp::getDIODir(BaseIO *io, EDIOPin pin, EDIODir *dir) {
       io->writeCommandSeparator();
       return false;
     }
-    itoa(pin - DIO_0_P, buffer, 10);
-    if (!io->writeStr(buffer)) {
+    if (!io->writeNumber(pin - DIO_0_P)) {
       io->writeCommandSeparator();
       return false;
     }
@@ -158,8 +151,7 @@ bool scpi_rp::getDIODir(BaseIO *io, EDIOPin pin, EDIODir *dir) {
       io->writeCommandSeparator();
       return false;
     }
-    itoa(pin - DIO_0_N, buffer, 10);
-    if (!io->writeStr(buffer)) {
+    if (!io->writeNumber(pin - DIO_0_N)) {
       io->writeCommandSeparator();
       return false;
     }
@@ -176,25 +168,23 @@ bool scpi_rp::getDIODir(BaseIO *io, EDIOPin pin, EDIODir *dir) {
 bool scpi_rp::setDIOState(BaseIO *io, EDIOPin pin, bool state) {
   auto writeState = [&](bool state) {
     if (!io->writeStr(state ? ",1" : ",0")) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+      io->writeCommandSeparator();
       return false;
     }
-    return io->writeStr(SCPI_COMMAND_SEPARATOR);
+    return io->writeCommandSeparator();
   };
-  char buffer[3];
   constexpr char cmd[] = "DIG:PIN ";
   if (!io->writeStr(cmd)) {
-    io->writeStr(SCPI_COMMAND_SEPARATOR);
+    io->writeCommandSeparator();
     return false;
   }
   if (pin <= LED_7) {
     if (!io->writeStr("LED")) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+      io->writeCommandSeparator();
       return false;
     }
-    itoa(pin, buffer, 10);
-    if (!io->writeStr(buffer)) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+    if (!io->writeNumber(pin)) {
+      io->writeCommandSeparator();
       return false;
     }
     return writeState(state);
@@ -202,16 +192,15 @@ bool scpi_rp::setDIOState(BaseIO *io, EDIOPin pin, bool state) {
 
   if (pin >= DIO_0_P && pin <= DIO_10_P) {
     if (!io->writeStr("DIO")) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+      io->writeCommandSeparator();
       return false;
     }
-    itoa(pin - DIO_0_P, buffer, 10);
-    if (!io->writeStr(buffer)) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+    if (!io->writeNumber(pin - DIO_0_P)) {
+      io->writeCommandSeparator();
       return false;
     }
     if (!io->writeStr("_P")) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+      io->writeCommandSeparator();
       return false;
     }
     return writeState(state);
@@ -219,22 +208,21 @@ bool scpi_rp::setDIOState(BaseIO *io, EDIOPin pin, bool state) {
 
   if (pin >= DIO_0_N && pin <= DIO_10_N) {
     if (!io->writeStr("DIO")) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+      io->writeCommandSeparator();
       return false;
     }
-    itoa(pin - DIO_0_N, buffer, 10);
-    if (!io->writeStr(buffer)) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+    if (!io->writeNumber(pin - DIO_0_N)) {
+      io->writeCommandSeparator();
       return false;
     }
     if (!io->writeStr("_N")) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+      io->writeCommandSeparator();
       return false;
     }
     return writeState(state);
   }
 
-  io->writeStr(SCPI_COMMAND_SEPARATOR);
+  io->writeCommandSeparator();
   return false;
 }
 bool scpi_rp::getDIOState(BaseIO *io, EDIOPin pin, bool *state) {
@@ -255,59 +243,55 @@ bool scpi_rp::getDIOState(BaseIO *io, EDIOPin pin, bool *state) {
     return false;
   };
 
-  char buffer[3];
   constexpr char cmd[] = "DIG:PIN? ";
   if (!io->writeStr(cmd)) {
-    io->writeStr(SCPI_COMMAND_SEPARATOR);
+    io->writeCommandSeparator();
     return false;
   }
   if (pin <= LED_7) {
     if (!io->writeStr("LED")) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+      io->writeCommandSeparator();
       return false;
     }
-    itoa(pin, buffer, 10);
-    if (!io->writeStr(buffer)) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+    if (!io->writeNumber(pin)) {
+      io->writeCommandSeparator();
       return false;
     }
-    io->writeStr(SCPI_COMMAND_SEPARATOR);
+    io->writeCommandSeparator();
     return readDir();
   }
 
   if (pin >= DIO_0_P && pin <= DIO_10_P) {
     if (!io->writeStr("DIO")) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+      io->writeCommandSeparator();
       return false;
     }
-    itoa(pin - DIO_0_P, buffer, 10);
-    if (!io->writeStr(buffer)) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+    if (!io->writeNumber(pin - DIO_0_P)) {
+      io->writeCommandSeparator();
       return false;
     }
     if (!io->writeStr("_P")) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+      io->writeCommandSeparator();
       return false;
     }
-    io->writeStr(SCPI_COMMAND_SEPARATOR);
+    io->writeCommandSeparator();
     return readDir();
   }
 
   if (pin >= DIO_0_N && pin <= DIO_10_N) {
     if (!io->writeStr("DIO")) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+      io->writeCommandSeparator();
       return false;
     }
-    itoa(pin - DIO_0_N, buffer, 10);
-    if (!io->writeStr(buffer)) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+    if (!io->writeNumber(pin - DIO_0_N)) {
+      io->writeCommandSeparator();
       return false;
     }
     if (!io->writeStr("_N")) {
-      io->writeStr(SCPI_COMMAND_SEPARATOR);
+      io->writeCommandSeparator();
       return false;
     }
-    io->writeStr(SCPI_COMMAND_SEPARATOR);
+    io->writeCommandSeparator();
     return readDir();
   }
   return false;

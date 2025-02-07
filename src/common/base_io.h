@@ -25,6 +25,8 @@ class BaseIO {
 
   bool readOnOff(bool *state);
   bool writeOnOff(bool state);
+  bool writeNumber(int value);
+  bool writeNumber(float value, uint8_t pre, uint8_t post);
 
   virtual scpi_size write(const uint8_t *_data, scpi_size _size) = 0;
 

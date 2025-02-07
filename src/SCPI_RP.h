@@ -18,6 +18,7 @@
 #include "scpi/scpi_rp_aio.h"
 #include "scpi/scpi_rp_daisy.h"
 #include "scpi/scpi_rp_dio.h"
+#include "scpi/scpi_rp_gen.h"
 #include "scpi/scpi_rp_pll.h"
 #include "scpi/scpi_rp_system.h"
 #include "scpi/scpi_rp_system_led.h"
@@ -41,6 +42,7 @@ class SCPIRedPitaya {
   SCPIAio aio;
   SCPIDaisy daisy;
   SCPIDio dio;
+  SCPIGen gen;
   SCPIPll pll;
   SCPISystem system;
   SCPISystemLed system_led;
