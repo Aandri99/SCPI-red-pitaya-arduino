@@ -173,7 +173,7 @@ bool scpi_rp::getGenSweepFreqStop(BaseIO *io, EGENChannel channel,
   return readValue();
 }
 
-bool scpi_rp::setGenSweepTime(BaseIO *io, EGENChannel channel, uint32_t value) {
+bool scpi_rp::setGenSweepTime(BaseIO *io, EGENChannel channel, uint64_t value) {
   constexpr char cmd[] = "SOUR";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
@@ -183,12 +183,12 @@ bool scpi_rp::setGenSweepTime(BaseIO *io, EGENChannel channel, uint32_t value) {
     io->writeCommandSeparator();
     return false;
   }
-  constexpr char cmd2[] = ":SWeep:FREQ:TIME ";
+  constexpr char cmd2[] = ":SWeep:TIME ";
   if (!io->writeStr(cmd2)) {
     io->writeCommandSeparator();
     return false;
   }
-  if (!io->writeNumber(value)) {
+  if (!io->writeNumberU64(value)) {
     io->writeCommandSeparator();
     return false;
   }
@@ -196,11 +196,11 @@ bool scpi_rp::setGenSweepTime(BaseIO *io, EGENChannel channel, uint32_t value) {
 }
 
 bool scpi_rp::getGenSweepTime(BaseIO *io, EGENChannel channel,
-                              uint32_t *_value) {
+                              uint64_t *_value) {
   auto readValue = [&]() {
     auto value = io->read();
     if (value.isValid) {
-      *_value = atoi(value.value);
+      *_value = io->atou64_dec(value.value);
       io->flushCommand(value.next_value);
       return true;
     }
@@ -215,7 +215,7 @@ bool scpi_rp::getGenSweepTime(BaseIO *io, EGENChannel channel,
     io->writeCommandSeparator();
     return false;
   }
-  constexpr char cmd2[] = ":SWeep:FREQ:TIME?\r\n";
+  constexpr char cmd2[] = ":SWeep:TIME?\r\n";
   if (!io->writeStr(cmd2)) {
     io->writeCommandSeparator();
     return false;

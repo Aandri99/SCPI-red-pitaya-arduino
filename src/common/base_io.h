@@ -26,11 +26,15 @@ class BaseIO {
   bool readOnOff(bool *state);
   bool writeOnOff(bool state);
   bool writeNumber(int value);
+  bool writeNumberU64(uint64_t value);
   bool writeNumber(float value, uint8_t pre, uint8_t post);
 
   virtual scpi_size write(const uint8_t *_data, scpi_size _size) = 0;
 
   scpi_size write(const char *_data, scpi_size _size);
+
+  uint64_t atou64_dec(const char *str);
+  char *uitoa64_dec(uint64_t value, char *str);
 
  protected:
   int checkParamSeparator();

@@ -483,7 +483,7 @@ bool scpi_rp::getGenARBData(BaseIO *io, EGENChannel channel, float *_value,
     if (value.isValid) {
       *_value = atof(value.value);
       io->flushCommand(value.next_value);
-      return true;
+      return !value.isLast;
     }
     return false;
   };

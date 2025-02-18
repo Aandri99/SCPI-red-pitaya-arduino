@@ -30,7 +30,6 @@ void setup() {
   Serial1.begin(RED_PITAYA_UART_RATE);
   rp.initUARTStream(&Serial1);
 #endif
-  rp.system.log(scpi_rp::CONSOLE);
   rp.gen.rst();
   rp.gen.wave(scpi_rp::GEN_CH_1, scpi_rp::ARBITRARY);
   rp.gen.freq(scpi_rp::GEN_CH_1, 10000);

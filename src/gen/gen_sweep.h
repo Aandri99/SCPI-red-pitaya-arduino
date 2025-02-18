@@ -20,8 +20,8 @@ bool getGenSweepFreqStart(BaseIO *io, EGENChannel channel, float *value);
 bool setGenSweepFreqStop(BaseIO *io, EGENChannel channel, float value);
 bool getGenSweepFreqStop(BaseIO *io, EGENChannel channel, float *value);
 
-bool setGenSweepTime(BaseIO *io, EGENChannel channel, uint32_t value);
-bool getGenSweepTime(BaseIO *io, EGENChannel channel, uint32_t *value);
+bool setGenSweepTime(BaseIO *io, EGENChannel channel, uint64_t value);
+bool getGenSweepTime(BaseIO *io, EGENChannel channel, uint64_t *value);
 
 bool setGenSweepMode(BaseIO *io, EGENChannel channel, EGENSweepMode value);
 bool getGenSweepMode(BaseIO *io, EGENChannel channel, EGENSweepMode *value);

@@ -534,7 +534,7 @@ class SCPIGen {
    *  @return Returns true if the command was called successfully, returns false
    * for any other problems.
    */
-  bool sweepTime(EGENChannel channel, uint32_t value);
+  bool sweepTime(EGENChannel channel, uint64_t value);
 
   /*!
    *  Returns generation time in microseconds.
@@ -543,7 +543,7 @@ class SCPIGen {
    *  @return Returns true if the command was called successfully, returns false
    * for any other problems.
    */
-  bool sweepTimeQ(EGENChannel channel, uint32_t *value);
+  bool sweepTimeQ(EGENChannel channel, uint64_t *value);
 
   /*!
    *  Set sweep mode to either linear or logarithmic.

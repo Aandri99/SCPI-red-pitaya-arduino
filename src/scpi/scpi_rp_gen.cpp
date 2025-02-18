@@ -282,12 +282,12 @@ bool SCPIGen::sweepFreqEndQ(EGENChannel channel, float *value) {
   return getGenSweepFreqStop(m_io, channel, value);
 }
 
-bool SCPIGen::sweepTime(EGENChannel channel, uint32_t value) {
+bool SCPIGen::sweepTime(EGENChannel channel, uint64_t value) {
   if (m_io == nullptr) return false;
   return setGenSweepTime(m_io, channel, value);
 }
 
-bool SCPIGen::sweepTimeQ(EGENChannel channel, uint32_t *value) {
+bool SCPIGen::sweepTimeQ(EGENChannel channel, uint64_t *value) {
   if (m_io == nullptr) return false;
   return getGenSweepTime(m_io, channel, value);
 }

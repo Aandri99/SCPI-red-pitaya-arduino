@@ -20,6 +20,7 @@ namespace scpi_rp {
 */
 struct Value {
   bool isValid = false;
+  bool isLast = false;
   const char *value = nullptr;
   scpi_size size = 0;
   scpi_size next_value = 0;
