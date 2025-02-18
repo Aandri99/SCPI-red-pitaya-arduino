@@ -27,7 +27,7 @@ void setup() {
   Serial1.begin(RED_PITAYA_UART_RATE);
   rp.initUARTStream(&Serial1);
 #endif
-  rp.gen.rst();
+  rp.gen.reset();
   rp.gen.wave(scpi_rp::GEN_CH_1, scpi_rp::PWM);
   rp.gen.dutyCycle(scpi_rp::GEN_CH_1, 0.3);
   rp.gen.freq(scpi_rp::GEN_CH_1, 10000);

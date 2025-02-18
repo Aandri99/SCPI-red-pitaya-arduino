@@ -33,7 +33,7 @@ void setup() {
   Serial1.begin(RED_PITAYA_UART_RATE);
   rp.initUARTStream(&Serial1);
 #endif
-  rp.dio.rst();
+  rp.dio.reset();
   rp.dio.dir(scpi_rp::DIO_2_P, scpi_rp::OUT);
   rp.dio.dir(scpi_rp::DIO_2_N, scpi_rp::IN);
   scpi_rp::EDIODir dir;

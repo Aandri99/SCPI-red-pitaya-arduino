@@ -53,7 +53,7 @@ uint64_t BaseIO::atou64_dec(const char *str) {
   }
 
   while (isdigit(str[i])) {
-    int digit = str[i] - '0';
+    uint8_t digit = str[i] - '0';
 
     if (result > UINT64_MAX / 10 ||
         (result == UINT64_MAX / 10 && digit > UINT64_MAX % 10)) {
@@ -123,7 +123,7 @@ const Value BaseIO::readStr() {
     value.size = end - m_bufferReadPos;
     value.isValid = true;
     value.next_value = m_buffer[end] == ',' ? end + 1 : end + 2;
-    value.isLast = end < m_bufferSize
+    value.isLast = end < (int)m_bufferSize
                        ? m_buffer[end] == '\r' && m_buffer[end + 1] == '\n'
                        : false;
     m_buffer[end - 1] = '\0';
@@ -139,7 +139,7 @@ const Value BaseIO::read() {
   value.size = end - m_bufferReadPos;
   value.isValid = true;
   value.next_value = m_buffer[end] == ',' ? end + 1 : end + 2;
-  value.isLast = end < m_bufferSize
+  value.isLast = end < (int)m_bufferSize
                      ? m_buffer[end] == '\r' && m_buffer[end + 1] == '\n'
                      : false;
   m_buffer[end] = '\0';

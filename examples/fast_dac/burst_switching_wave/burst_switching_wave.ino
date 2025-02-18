@@ -34,7 +34,7 @@ void setup() {
 
   scpi_rp::EGENTrigger trig = scpi_rp::GEN_INT;
 
-  rp.gen.rst();
+  rp.gen.reset();
 
   // Set internal trigger
   rp.gen.trigSource(scpi_rp::GEN_CH_1, scpi_rp::GEN_INT);

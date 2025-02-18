@@ -32,12 +32,12 @@ void setup() {
   rp.initUARTStream(&Serial1);
 #endif
 
-  rp.dio.rst();
+  rp.dio.reset();
   rp.dio.dir(scpi_rp::DIO_0_P, scpi_rp::IN);
   rp.dio.dir(scpi_rp::DIO_0_N, scpi_rp::OUT);
   rp.dio.state(scpi_rp::DIO_0_N, true);
 
-  rp.gen.rst();
+  rp.gen.reset();
 
   // Set internal trigger
   rp.gen.trigSource(scpi_rp::GEN_CH_1, scpi_rp::GEN_EXT_NE);

@@ -35,7 +35,7 @@ void setup() {
   Serial1.begin(RED_PITAYA_UART_RATE);
   rp.initUARTStream(&Serial1);
 #endif
-  rp.aio.rst();
+  rp.aio.reset();
 }
 
 void loop() {

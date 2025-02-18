@@ -181,7 +181,7 @@ class SCPISystem {
    * @return Returns true if the command was called successfully, returns
    * false for any other problems
    */
-  bool rst();
+  bool reset();
 
   /**
    * The Service Request Enable (SRE) command sets the value of the Service

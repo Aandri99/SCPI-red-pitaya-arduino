@@ -31,7 +31,7 @@ class SCPIGen {
    *  @return Returns true if the command was called successfully, returns false
    * for any other problems.
    */
-  bool rst();
+  bool reset();
 
   /*!
    *  Synchronously triggers the generation of both fast analog outputs

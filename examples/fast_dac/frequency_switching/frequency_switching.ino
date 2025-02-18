@@ -34,7 +34,7 @@ void setup() {
   rp.initUARTStream(&Serial1);
 #endif
 
-  if (!rp.gen.rst()) {
+  if (!rp.gen.reset()) {
     Serial.println("Error reset");
   }
 

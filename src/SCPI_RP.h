@@ -15,6 +15,7 @@
 #include <Stream.h>
 #include <stdint.h>
 
+#include "scpi/scpi_rp_acq_common.h"
 #include "scpi/scpi_rp_aio.h"
 #include "scpi/scpi_rp_daisy.h"
 #include "scpi/scpi_rp_dio.h"
@@ -46,6 +47,7 @@ class SCPIRedPitaya {
   SCPIPll pll;
   SCPISystem system;
   SCPISystemLed system_led;
+  SCPIAcqCommon acq;
 };
 
 }  // namespace scpi_rp

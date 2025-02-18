@@ -9,7 +9,7 @@
 using namespace scpi_rp;
 
 bool scpi_rp::setGenSweepDefault(BaseIO *io) {
-  constexpr char cmd[] = "SOUR:SWeep:DEFault\r\n ";
+  constexpr char cmd[] = "SOUR:SWeep:DEFault\r\n";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
     return false;

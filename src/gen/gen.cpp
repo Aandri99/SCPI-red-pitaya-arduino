@@ -17,7 +17,7 @@ bool scpi_rp::setGenReset(BaseIO *io) {
 }
 
 bool scpi_rp::setGenSync(BaseIO *io) {
-  constexpr char cmd[] = "PHAS:ALIGN\r\n ";
+  constexpr char cmd[] = "PHAS:ALIGN\r\n";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
     return false;

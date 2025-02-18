@@ -38,7 +38,7 @@ void setup() {
   float end = 0;
   uint64_t time = 0;
 
-  rp.gen.rst();
+  rp.gen.reset();
   rp.gen.wave(scpi_rp::GEN_CH_1, scpi_rp::SINE);
   rp.gen.amp(scpi_rp::GEN_CH_1, 0.9);
 

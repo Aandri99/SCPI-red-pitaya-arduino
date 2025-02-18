@@ -22,7 +22,7 @@ using namespace scpi_rp;
 
 void SCPIGen::setInterface(BaseIO *io) { m_io = io; }
 
-bool SCPIGen::rst() {
+bool SCPIGen::reset() {
   if (m_io == nullptr) return false;
   return setGenReset(m_io);
 }
