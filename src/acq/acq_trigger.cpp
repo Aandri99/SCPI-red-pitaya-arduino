@@ -14,46 +14,46 @@ bool scpi_rp::setAcqTrigger(BaseIO *io, EACQTrigger trigger) {
     return false;
   }
 
-  if (trigger == DISABLED) {
+  if (trigger == ACQ_DISABLED) {
     constexpr char param[] = "DISABLED";
     return io->writeStr(param);
-  } else if (trigger == NOW) {
+  } else if (trigger == ACQ_NOW) {
     constexpr char param[] = "NOW";
     return io->writeStr(param);
-  } else if (trigger == CH1_PE) {
+  } else if (trigger == ACQ_CH1_PE) {
     constexpr char param[] = "CH1_PE";
     return io->writeStr(param);
-  } else if (trigger == CH1_NE) {
+  } else if (trigger == ACQ_CH1_NE) {
     constexpr char param[] = "CH1_NE";
     return io->writeStr(param);
-  } else if (trigger == CH2_PE) {
+  } else if (trigger == ACQ_CH2_PE) {
     constexpr char param[] = "CH2_PE";
     return io->writeStr(param);
-  } else if (trigger == CH2_NE) {
+  } else if (trigger == ACQ_CH2_NE) {
     constexpr char param[] = "CH2_NE";
     return io->writeStr(param);
-  } else if (trigger == EXT_PE) {
+  } else if (trigger == ACQ_EXT_PE) {
     constexpr char param[] = "EXT_PE";
     return io->writeStr(param);
-  } else if (trigger == EXT_NE) {
+  } else if (trigger == ACQ_EXT_NE) {
     constexpr char param[] = "EXT_NE";
     return io->writeStr(param);
-  } else if (trigger == AWG_PE) {
+  } else if (trigger == ACQ_AWG_PE) {
     constexpr char param[] = "AWG_PE";
     return io->writeStr(param);
-  } else if (trigger == AWG_NE) {
+  } else if (trigger == ACQ_AWG_NE) {
     constexpr char param[] = "AWG_NE";
     return io->writeStr(param);
-  } else if (trigger == CH3_PE) {
+  } else if (trigger == ACQ_CH3_PE) {
     constexpr char param[] = "CH3_PE";
     return io->writeStr(param);
-  } else if (trigger == CH3_NE) {
+  } else if (trigger == ACQ_CH3_NE) {
     constexpr char param[] = "CH3_NE";
     return io->writeStr(param);
-  } else if (trigger == CH4_PE) {
+  } else if (trigger == ACQ_CH4_PE) {
     constexpr char param[] = "CH4_PE";
     return io->writeStr(param);
-  } else if (trigger == CH4_NE) {
+  } else if (trigger == ACQ_CH4_NE) {
     constexpr char param[] = "CH4_NE";
     return io->writeStr(param);
   }
@@ -74,46 +74,46 @@ bool scpi_rp::setAcqTriggerCh(BaseIO *io, EACQChannel channel,
     return false;
   }
 
-  if (trigger == DISABLED) {
+  if (trigger == ACQ_DISABLED) {
     constexpr char param[] = " DISABLED";
     return io->writeStr(param);
-  } else if (trigger == NOW) {
+  } else if (trigger == ACQ_NOW) {
     constexpr char param[] = " NOW";
     return io->writeStr(param);
-  } else if (trigger == CH1_PE) {
+  } else if (trigger == ACQ_CH1_PE) {
     constexpr char param[] = " CH1_PE";
     return io->writeStr(param);
-  } else if (trigger == CH1_NE) {
+  } else if (trigger == ACQ_CH1_NE) {
     constexpr char param[] = " CH1_NE";
     return io->writeStr(param);
-  } else if (trigger == CH2_PE) {
+  } else if (trigger == ACQ_CH2_PE) {
     constexpr char param[] = " CH2_PE";
     return io->writeStr(param);
-  } else if (trigger == CH2_NE) {
+  } else if (trigger == ACQ_CH2_NE) {
     constexpr char param[] = " CH2_NE";
     return io->writeStr(param);
-  } else if (trigger == EXT_PE) {
+  } else if (trigger == ACQ_EXT_PE) {
     constexpr char param[] = " EXT_PE";
     return io->writeStr(param);
-  } else if (trigger == EXT_NE) {
+  } else if (trigger == ACQ_EXT_NE) {
     constexpr char param[] = " EXT_NE";
     return io->writeStr(param);
-  } else if (trigger == AWG_PE) {
+  } else if (trigger == ACQ_AWG_PE) {
     constexpr char param[] = " AWG_PE";
     return io->writeStr(param);
-  } else if (trigger == AWG_NE) {
+  } else if (trigger == ACQ_AWG_NE) {
     constexpr char param[] = " AWG_NE";
     return io->writeStr(param);
-  } else if (trigger == CH3_PE) {
+  } else if (trigger == ACQ_CH3_PE) {
     constexpr char param[] = " CH3_PE";
     return io->writeStr(param);
-  } else if (trigger == CH3_NE) {
+  } else if (trigger == ACQ_CH3_NE) {
     constexpr char param[] = " CH3_NE";
     return io->writeStr(param);
-  } else if (trigger == CH4_PE) {
+  } else if (trigger == ACQ_CH4_PE) {
     constexpr char param[] = " CH4_PE";
     return io->writeStr(param);
-  } else if (trigger == CH4_NE) {
+  } else if (trigger == ACQ_CH4_NE) {
     constexpr char param[] = " CH4_NE";
     return io->writeStr(param);
   }

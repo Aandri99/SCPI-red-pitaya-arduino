@@ -46,20 +46,20 @@ enum EACQDataType {
 };
 
 enum EACQTrigger {
-  DISABLED = 0,
-  NOW = 1,
-  CH1_PE = 2,
-  CH1_NE = 3,
-  CH2_PE = 4,
-  CH2_NE = 5,
-  EXT_PE = 6,
-  EXT_NE = 7,
-  AWG_PE = 8,
-  AWG_NE = 9,
-  CH3_PE = 10,
-  CH3_NE = 11,
-  CH4_PE = 12,
-  CH4_NE = 13
+  ACQ_DISABLED = 0,
+  ACQ_NOW = 1,
+  ACQ_CH1_PE = 2,
+  ACQ_CH1_NE = 3,
+  ACQ_CH2_PE = 4,
+  ACQ_CH2_NE = 5,
+  ACQ_EXT_PE = 6,
+  ACQ_EXT_NE = 7,
+  ACQ_AWG_PE = 8,
+  ACQ_AWG_NE = 9,
+  ACQ_CH3_PE = 10,
+  ACQ_CH3_NE = 11,
+  ACQ_CH4_PE = 12,
+  ACQ_CH4_NE = 13
 };
 
 }  // namespace scpi_rp
