@@ -34,4 +34,5 @@ void SCPIRedPitaya::initUARTStream(Stream *serial) {
   system_led.setInterface(u);
   gen.setInterface(u);
   acq.control.setInterface(u);
+  acq.settings.setInterface(u);
 }

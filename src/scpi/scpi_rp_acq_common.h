@@ -13,6 +13,8 @@
 #define SCPI_RP_ACQ_COMMON_H
 
 #include "scpi_rp_acq_control.h"
+#include "scpi_rp_acq_settings.h"
+#include "scpi_rp_acq_trigger.h"
 
 namespace scpi_rp {
 /*!
@@ -20,6 +22,8 @@ namespace scpi_rp {
  */
 struct SCPIAcqCommon {
   SCPIAcqControl control;
+  SCPIAcqSettings settings;
+  SCPIAcqTrigger trigger;
 };
 
 }  // namespace scpi_rp

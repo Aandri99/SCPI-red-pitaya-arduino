@@ -27,31 +27,31 @@ bool scpi_rp::setGenFunc(BaseIO *io, EGENChannel channel, EGENWave wave) {
   }
 
   if (wave == SINE) {
-    constexpr char param[] = "SINE\r\n";
+    constexpr char param[] = "SINE";
     return io->writeStr(param);
   } else if (wave == SQUARE) {
-    constexpr char param[] = "SQUARE\r\n";
+    constexpr char param[] = "SQUARE";
     return io->writeStr(param);
   } else if (wave == TRIANGLE) {
-    constexpr char param[] = "TRIANGLE\r\n";
+    constexpr char param[] = "TRIANGLE";
     return io->writeStr(param);
   } else if (wave == SAWU) {
-    constexpr char param[] = "SAWU\r\n";
+    constexpr char param[] = "SAWU";
     return io->writeStr(param);
   } else if (wave == SAWD) {
-    constexpr char param[] = "SAWD\r\n";
+    constexpr char param[] = "SAWD";
     return io->writeStr(param);
   } else if (wave == DC) {
-    constexpr char param[] = "DC\r\n";
+    constexpr char param[] = "DC";
     return io->writeStr(param);
   } else if (wave == PWM) {
-    constexpr char param[] = "PWM\r\n";
+    constexpr char param[] = "PWM";
     return io->writeStr(param);
   } else if (wave == ARBITRARY) {
-    constexpr char param[] = "ARBITRARY\r\n";
+    constexpr char param[] = "ARBITRARY";
     return io->writeStr(param);
   } else if (wave == DC_NEG) {
-    constexpr char param[] = "DC_NEG\r\n";
+    constexpr char param[] = "DC_NEG";
     return io->writeStr(param);
   }
 
