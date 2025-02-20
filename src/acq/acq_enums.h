@@ -62,6 +62,12 @@ enum EACQTrigger {
   ACQ_CH4_NE = 13
 };
 
+enum EACQPosition {
+  ACQ_PRE_TRIG = 0,
+  ACQ_POST_TRIG = 1,
+  ACQ_PRE_POST_TRIG = 2
+};
+
 }  // namespace scpi_rp
 
 #endif
