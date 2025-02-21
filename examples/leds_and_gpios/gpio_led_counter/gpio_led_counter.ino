@@ -1,5 +1,5 @@
-// The example counts the number of button presses connected to DIO0_P and
-// DIO0_N and changes the state of the indicators.
+// The example counts the number of button presses connected to DIO0_N to GND
+// and changes the state of the indicators.
 
 // Written by Nikolay Danilyuk
 
@@ -39,9 +39,7 @@ void setup() {
   rp.initUARTStream(&Serial1);
 #endif
   rp.dio.reset();
-  rp.dio.dir(scpi_rp::DIO_0_P, scpi_rp::OUT);
   rp.dio.dir(scpi_rp::DIO_0_N, scpi_rp::IN);
-  rp.dio.state(scpi_rp::DIO_0_P, true);
   for (uint8_t i = scpi_rp::LED_0; i <= scpi_rp::LED_7; i++) {
     rp.dio.state((scpi_rp::EDIOPin)(i), false);
   }

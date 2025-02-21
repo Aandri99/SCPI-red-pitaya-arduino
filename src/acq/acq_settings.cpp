@@ -30,7 +30,7 @@ bool scpi_rp::getAcqDecimation(BaseIO *io, EACQDecimation *decimation) {
     }
     return false;
   };
-  constexpr char cmd[] = "ACQ:DEC?";
+  constexpr char cmd[] = "ACQ:DEC?\r\n";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
     return false;
@@ -112,7 +112,7 @@ bool scpi_rp::getAcqDecimationFactor(BaseIO *io, uint32_t *decimation) {
     }
     return false;
   };
-  constexpr char cmd[] = "ACQ:DEC:Factor?";
+  constexpr char cmd[] = "ACQ:DEC:Factor?\r\n";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
     return false;
@@ -181,7 +181,7 @@ bool scpi_rp::setAcqAveraging(BaseIO *io, bool enable) {
 }
 
 bool scpi_rp::getAcqAveraging(BaseIO *io, bool *enable) {
-  constexpr char cmd[] = "ACQ:AVG?";
+  constexpr char cmd[] = "ACQ:AVG?\r\n";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
     return false;
@@ -346,7 +346,7 @@ bool scpi_rp::getAcqAcDc(BaseIO *io, EACQChannel channel, EACQAcDc *mode) {
 }
 
 bool scpi_rp::setAcqUnits(BaseIO *io, EACQDataType units) {
-  constexpr char cmd[] = "ACQ:DATA:Units";
+  constexpr char cmd[] = "ACQ:DATA:Units ";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
     return false;

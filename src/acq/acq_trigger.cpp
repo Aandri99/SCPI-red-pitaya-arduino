@@ -15,46 +15,46 @@ bool scpi_rp::setAcqTrigger(BaseIO *io, EACQTrigger trigger) {
   }
 
   if (trigger == ACQ_DISABLED) {
-    constexpr char param[] = "DISABLED";
+    constexpr char param[] = "DISABLED\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_NOW) {
-    constexpr char param[] = "NOW";
+    constexpr char param[] = "NOW\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH1_PE) {
-    constexpr char param[] = "CH1_PE";
+    constexpr char param[] = "CH1_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH1_NE) {
-    constexpr char param[] = "CH1_NE";
+    constexpr char param[] = "CH1_NE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH2_PE) {
-    constexpr char param[] = "CH2_PE";
+    constexpr char param[] = "CH2_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH2_NE) {
-    constexpr char param[] = "CH2_NE";
+    constexpr char param[] = "CH2_NE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_EXT_PE) {
-    constexpr char param[] = "EXT_PE";
+    constexpr char param[] = "EXT_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_EXT_NE) {
-    constexpr char param[] = "EXT_NE";
+    constexpr char param[] = "EXT_NE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_AWG_PE) {
-    constexpr char param[] = "AWG_PE";
+    constexpr char param[] = "AWG_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_AWG_NE) {
-    constexpr char param[] = "AWG_NE";
+    constexpr char param[] = "AWG_NE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH3_PE) {
-    constexpr char param[] = "CH3_PE";
+    constexpr char param[] = "CH3_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH3_NE) {
-    constexpr char param[] = "CH3_NE";
+    constexpr char param[] = "CH3_NE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH4_PE) {
-    constexpr char param[] = "CH4_PE";
+    constexpr char param[] = "CH4_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH4_NE) {
-    constexpr char param[] = "CH4_NE";
+    constexpr char param[] = "CH4_NE\r\n";
     return io->writeStr(param);
   }
 
@@ -75,46 +75,46 @@ bool scpi_rp::setAcqTriggerCh(BaseIO *io, EACQChannel channel,
   }
 
   if (trigger == ACQ_DISABLED) {
-    constexpr char param[] = " DISABLED";
+    constexpr char param[] = " DISABLED\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_NOW) {
-    constexpr char param[] = " NOW";
+    constexpr char param[] = " NOW\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH1_PE) {
-    constexpr char param[] = " CH1_PE";
+    constexpr char param[] = " CH1_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH1_NE) {
-    constexpr char param[] = " CH1_NE";
+    constexpr char param[] = " CH1_NE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH2_PE) {
-    constexpr char param[] = " CH2_PE";
+    constexpr char param[] = " CH2_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH2_NE) {
-    constexpr char param[] = " CH2_NE";
+    constexpr char param[] = " CH2_NE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_EXT_PE) {
-    constexpr char param[] = " EXT_PE";
+    constexpr char param[] = " EXT_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_EXT_NE) {
-    constexpr char param[] = " EXT_NE";
+    constexpr char param[] = " EXT_NE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_AWG_PE) {
-    constexpr char param[] = " AWG_PE";
+    constexpr char param[] = " AWG_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_AWG_NE) {
-    constexpr char param[] = " AWG_NE";
+    constexpr char param[] = " AWG_NE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH3_PE) {
-    constexpr char param[] = " CH3_PE";
+    constexpr char param[] = " CH3_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH3_NE) {
-    constexpr char param[] = " CH3_NE";
+    constexpr char param[] = " CH3_NE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH4_PE) {
-    constexpr char param[] = " CH4_PE";
+    constexpr char param[] = " CH4_PE\r\n";
     return io->writeStr(param);
   } else if (trigger == ACQ_CH4_NE) {
-    constexpr char param[] = " CH4_NE";
+    constexpr char param[] = " CH4_NE\r\n";
     return io->writeStr(param);
   }
 
@@ -123,7 +123,7 @@ bool scpi_rp::setAcqTriggerCh(BaseIO *io, EACQChannel channel,
 }
 
 bool scpi_rp::getAcqTriggerStateQ(BaseIO *io, bool *state) {
-  constexpr char cmd[] = "ACQ:TRig:STAT?";
+  constexpr char cmd[] = "ACQ:TRig:STAT?\r\n";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
     return false;
@@ -186,7 +186,7 @@ bool scpi_rp::getAcqTriggerFillQ(BaseIO *io, bool *state) {
     }
     return false;
   };
-  constexpr char cmd[] = "ACQ:TRig:FILL?";
+  constexpr char cmd[] = "ACQ:TRig:FILL?\r\n";
   if (!io->writeStr(cmd)) {
     io->writeCommandSeparator();
     return false;
