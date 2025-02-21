@@ -181,7 +181,7 @@ bool scpi_rp::getAcqGetDataStartCount(BaseIO *io, EACQChannel channel,
     }
     return false;
   };
-  if (!g_acqCommandStartEndSended) {
+  if (!g_acqCommandStartCountSended) {
     constexpr char cmd[] = "ACQ:SOUR";
     if (!io->writeStr(cmd)) {
       io->writeCommandSeparator();
@@ -219,16 +219,16 @@ bool scpi_rp::getAcqGetDataStartCount(BaseIO *io, EACQChannel channel,
     bool ret = readValue();
     *last = !ret;
     if (*last) {
-      g_acqCommandStartEndSended = false;
+      g_acqCommandStartCountSended = false;
       return true;
     }
-    g_acqCommandStartEndSended = true;
+    g_acqCommandStartCountSended = true;
     return true;
   } else {
     bool ret = readValue();
     *last = !ret;
     if (*last) {
-      g_acqCommandStartEndSended = false;
+      g_acqCommandStartCountSended = false;
     }
     return true;
   }
