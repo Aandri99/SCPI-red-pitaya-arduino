@@ -18,7 +18,7 @@ using namespace scpi_rp;
 
 void SCPIAio::setInterface(BaseIO *io) { m_io = io; }
 
-bool SCPIAio::rst() {
+bool SCPIAio::reset() {
   if (m_io == nullptr) return false;
   return setAIORst(m_io);
 }

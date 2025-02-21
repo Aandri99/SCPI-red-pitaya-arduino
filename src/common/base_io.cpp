@@ -5,7 +5,66 @@
 
 #include "Arduino.h"
 
+#if defined(ARDUINO_ARCH_SAMD) || defined(ARDUINO_ARCH_SAM)
+#include <avr/dtostrf.h>
+#endif
+
 using namespace scpi_rp;
+
+char *BaseIO::uitoa64_dec(uint64_t value, char *str) {
+  if (value == 0) {
+    str[0] = '0';
+    str[1] = '\0';
+    return str;
+  }
+
+  char *ptr = str;
+  char *ptr1 = str;
+  char digit;
+
+  while (value != 0) {
+    digit = (char)(value % 10);
+    value /= 10;
+
+    *ptr++ = digit + '0';
+  }
+
+  *ptr-- = '\0';
+
+  while (ptr1 < ptr) {
+    digit = *ptr;
+    *ptr-- = *ptr1;
+    *ptr1++ = digit;
+  }
+
+  return str;
+}
+
+uint64_t BaseIO::atou64_dec(const char *str) {
+  uint64_t result = 0;
+  int i = 0;
+
+  while (isspace(str[i])) {
+    i++;
+  }
+
+  if (str[i] == '\0') {
+    return 0;
+  }
+
+  while (isdigit(str[i])) {
+    uint8_t digit = str[i] - '0';
+
+    if (result > UINT64_MAX / 10 ||
+        (result == UINT64_MAX / 10 && digit > UINT64_MAX % 10)) {
+      return UINT64_MAX;
+    }
+
+    result = result * 10 + digit;
+    i++;
+  }
+  return result;
+}
 
 BaseIO::BaseIO() {
   m_bufferSize = 0;
@@ -60,11 +119,14 @@ const Value BaseIO::readStr() {
   int end = fillBuffer();
   if (end == -1) return value;
   if (m_buffer[m_bufferReadPos] == '\"' && m_buffer[end - 1] == '\"') {
-    m_buffer[end - 1] = '\0';
     value.value = (const char *)(m_buffer + m_bufferReadPos + 1);
     value.size = end - m_bufferReadPos;
     value.isValid = true;
     value.next_value = m_buffer[end] == ',' ? end + 1 : end + 2;
+    value.isLast = end < (int)m_bufferSize
+                       ? m_buffer[end] == '\r' && m_buffer[end + 1] == '\n'
+                       : false;
+    m_buffer[end - 1] = '\0';
   }
   return value;
 }
@@ -73,11 +135,14 @@ const Value BaseIO::read() {
   Value value;
   int end = fillBuffer();
   if (end == -1) return value;
-  m_buffer[end] = '\0';
   value.value = (const char *)(m_buffer + m_bufferReadPos);
   value.size = end - m_bufferReadPos;
   value.isValid = true;
   value.next_value = m_buffer[end] == ',' ? end + 1 : end + 2;
+  value.isLast = end < (int)m_bufferSize
+                     ? m_buffer[end] == '\r' && m_buffer[end + 1] == '\n'
+                     : false;
+  m_buffer[end] = '\0';
   return value;
 }
 
@@ -135,4 +200,22 @@ bool BaseIO::readOnOff(bool *state) {
     return true;
   }
   return false;
+}
+
+bool BaseIO::writeNumber(int value) {
+  char buffer[10];
+  itoa(value, buffer, 10);
+  return writeStr(buffer);
+}
+
+bool BaseIO::writeNumberU64(uint64_t value) {
+  char buffer[20];
+  uitoa64_dec(value, buffer);
+  return writeStr(buffer);
+}
+
+bool BaseIO::writeNumber(float value, uint8_t pre, uint8_t post) {
+  char buffer[12];
+  dtostrf(value, pre, post, buffer);
+  return writeStr(buffer);
 }

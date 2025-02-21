@@ -83,7 +83,7 @@ bool SCPISystem::opcQ(uint8_t *value) {
   return getOpc(m_io, value);
 }
 
-bool SCPISystem::rst() {
+bool SCPISystem::reset() {
   if (m_io == nullptr) return false;
   return setRst(m_io);
 }

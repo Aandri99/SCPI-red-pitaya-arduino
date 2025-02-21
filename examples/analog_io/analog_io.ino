@@ -35,12 +35,12 @@ void setup() {
   Serial1.begin(RED_PITAYA_UART_RATE);
   rp.initUARTStream(&Serial1);
 #endif
-  rp.aio.rst();
+  rp.aio.reset();
 }
 
 void loop() {
   float in_value = 0;
-  if (round(value * 10) > 18) value = 0;
+  if ((value * 10) > 18) value = 0;
   if (!rp.aio.state(scpi_rp::AOUT_0, value)) {
     Serial.println("Error set value");
   }

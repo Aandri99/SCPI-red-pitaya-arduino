@@ -31,7 +31,7 @@ class SCPIAio {
    *  @return Returns true if the command was called successfully, returns false
    * for any other problems.
    */
-  bool rst();
+  bool reset();
 
   /*!
    * Set the analog voltage on the slow analog outputs. The voltage range of

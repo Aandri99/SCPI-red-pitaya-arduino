@@ -33,7 +33,7 @@ class SCPIDio {
    *  @return Returns true if the command was called successfully, returns false
    * for any other problems.
    */
-  bool rst();
+  bool reset();
 
   /*!
    *  Set the direction of digital pins to output or input.
