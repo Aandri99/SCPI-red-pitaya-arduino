@@ -14,6 +14,8 @@
 
 #include "scpi_rp_acq_control.h"
 #include "scpi_rp_acq_data.h"
+#include "scpi_rp_acq_dma_data.h"
+#include "scpi_rp_acq_dma_settings.h"
 #include "scpi_rp_acq_settings.h"
 #include "scpi_rp_acq_trigger.h"
 
@@ -21,11 +23,18 @@ namespace scpi_rp {
 /*!
  *  Class that stores state and functions for SCPI server
  */
+
+struct SCPIAcqDMACommon {
+  SCPIAcqDMASettings settings;
+  SCPIAcqData data;
+};
+
 struct SCPIAcqCommon {
   SCPIAcqControl control;
   SCPIAcqSettings settings;
   SCPIAcqTrigger trigger;
   SCPIAcqData data;
+  SCPIAcqDMACommon dma;
 };
 
 }  // namespace scpi_rp
