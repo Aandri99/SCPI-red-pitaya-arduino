@@ -180,7 +180,7 @@ class SCPIAcqSettings {
    *  Select units in which the acquired data will be returned. For API commands
    *  this depends on which function is called (see specific functions for
    *  details).
-   *  @param mode Set coupling mode
+   *  @param mode Set mode
    *  @return Returns true if the command was called successfully, returns false
    * for any other problems.
    */
@@ -188,7 +188,7 @@ class SCPIAcqSettings {
 
   /*!
    *  Get units in which the acquired data will be returned.
-   *  @param mode Returns the coupling mode
+   *  @param mode Returns the mode
    *  @return Returns true if the command was called successfully, returns false
    * for any other problems.
    */
