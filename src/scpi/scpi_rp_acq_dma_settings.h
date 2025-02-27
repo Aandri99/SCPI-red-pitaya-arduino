@@ -67,6 +67,7 @@ class SCPIAcqDMASettings {
   /*!
    *  Sets the decimation used at acquiring signal for the Deep Memory Mode.
    *  Used only in split trigger mode
+   *  (currently only STEMlab 125-14 4-Input)
    *  @param channel Fast ADC channel
    *  @param decimation Sets decimation on selected channel.
    *  @return Returns true if the command was called successfully, returns false
@@ -77,6 +78,7 @@ class SCPIAcqDMASettings {
   /*!
    *  Returns the decimation used for acquiring signal for the Deep Memory Mode.
    *  Used only in split trigger mode
+   *  (currently only STEMlab 125-14 4-Input)
    *  @param channel Fast ADC channel
    *  @param decimation Returns decimation
    *  @return Returns true if the command was called successfully, returns false

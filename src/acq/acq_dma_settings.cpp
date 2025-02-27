@@ -1,5 +1,6 @@
 #include "acq_dma_settings.h"
 
+#include <Arduino.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +12,7 @@ bool scpi_rp::getAcqDMAStart(BaseIO *io, uint32_t *_value) {
   auto readValue = [&]() {
     auto value = io->read();
     if (value.isValid) {
-      *_value = atoi(value.value);
+      *_value = io->atou64_dec(value.value);
       io->flushCommand(value.next_value);
       return true;
     }
@@ -29,7 +30,7 @@ bool scpi_rp::getAcqDMASize(BaseIO *io, uint32_t *_value) {
   auto readValue = [&]() {
     auto value = io->read();
     if (value.isValid) {
-      *_value = atoi(value.value);
+      *_value = io->atou64_dec(value.value);
       io->flushCommand(value.next_value);
       return true;
     }
@@ -210,7 +211,7 @@ bool scpi_rp::setAcqDMABufferCh(BaseIO *io, EACQChannel channel, uint32_t start,
     io->writeCommandSeparator();
     return false;
   }
-  if (!io->writeNumber(start)) {
+  if (!io->writeNumberU64(start)) {
     io->writeCommandSeparator();
     return false;
   }
@@ -218,7 +219,7 @@ bool scpi_rp::setAcqDMABufferCh(BaseIO *io, EACQChannel channel, uint32_t start,
     io->writeCommandSeparator();
     return false;
   }
-  if (!io->writeNumber(size)) {
+  if (!io->writeNumberU64(size)) {
     io->writeCommandSeparator();
     return false;
   }
@@ -239,7 +240,6 @@ bool scpi_rp::setAcqDMAUnits(BaseIO *io, EACQDataType units) {
     constexpr char param[] = "VOLTS\r\n";
     return io->writeStr(param);
   }
-
   io->writeCommandSeparator();
   return false;
 }

@@ -26,7 +26,7 @@ namespace scpi_rp {
 
 struct SCPIAcqDMACommon {
   SCPIAcqDMASettings settings;
-  SCPIAcqData data;
+  SCPIAcqDMAData data;
 };
 
 struct SCPIAcqCommon {

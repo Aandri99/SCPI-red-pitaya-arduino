@@ -42,7 +42,7 @@ bool scpi_rp::getAcqDMAWritePointerCh(BaseIO *io, EACQChannel channel,
   auto readValue = [&]() {
     auto value = io->read();
     if (value.isValid) {
-      *position = atoi(value.value);
+      *position = io->atou64_dec(value.value);
       io->flushCommand(value.next_value);
       return true;
     }
@@ -70,7 +70,7 @@ bool scpi_rp::getAcqDMATriggerPointerCh(BaseIO *io, EACQChannel channel,
   auto readValue = [&]() {
     auto value = io->read();
     if (value.isValid) {
-      *position = atoi(value.value);
+      *position = io->atou64_dec(value.value);
       io->flushCommand(value.next_value);
       return true;
     }
@@ -121,7 +121,7 @@ bool scpi_rp::getAcqDMAGetDataStartCount(BaseIO *io, EACQChannel channel,
       return false;
     }
 
-    if (!io->writeNumber(start)) {
+    if (!io->writeNumberU64(start)) {
       io->writeCommandSeparator();
       return false;
     }
@@ -131,7 +131,7 @@ bool scpi_rp::getAcqDMAGetDataStartCount(BaseIO *io, EACQChannel channel,
       return false;
     }
 
-    if (!io->writeNumber(size)) {
+    if (!io->writeNumberU64(size)) {
       io->writeCommandSeparator();
       return false;
     }
