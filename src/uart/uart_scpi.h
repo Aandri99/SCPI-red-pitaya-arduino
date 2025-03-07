@@ -1,5 +1,5 @@
-#ifndef UART_H
-#define UART_H
+#ifndef UART_SCPI_H
+#define UART_SCPI_H
 
 #include <Stream.h>
 #include <stdint.h>

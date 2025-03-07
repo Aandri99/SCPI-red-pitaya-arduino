@@ -18,5 +18,5 @@ BaseIO KEYWORD1
 # Methods and Functions (KEYWORD2)
 ###########################################
 
-initUARTStream	KEYWORD2
+initStream	KEYWORD2
 

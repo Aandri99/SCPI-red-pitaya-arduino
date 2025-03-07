@@ -36,9 +36,9 @@ class SCPIRedPitaya {
   ~SCPIRedPitaya();
 
   /*!
-   *  @param serial Stream for UART interface.
+   *  @param serial Stream for interface.
    */
-  void initUARTStream(Stream *serial);
+  void initStream(Stream *serial);
 
   SCPIAio aio;
   SCPIDaisy daisy;

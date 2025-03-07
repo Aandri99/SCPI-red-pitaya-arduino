@@ -1,3 +1,5 @@
+// The example shows how you can use RP SCPI API together with Ethernet
+// controllers of the W5100, W5200, W5500 series Before starting, you need to
 // Example of data capture at the Fast ADC IN1
 // Before starting, you need to connect Fast OUT 1 <=> Fast IN1
 
@@ -6,31 +8,28 @@
 // REQUIRES the following Arduino libraries:
 // - SCPI Red Pitaya Library:
 // https://github.com/RedPitaya/SCPI-red-pitaya-arduino
+// - Ethernet
 
-#include <Arduino.h>
+// Before run test need connect AI0 (E2) <=> AO0 (E2) with wire on Red Pitaya
+
+#include <Ethernet.h>
 
 #include "SCPI_RP.h"
 
-#if defined(ARDUINO_ARCH_AVR)
-#include <SoftwareSerial.h>
-SoftwareSerial uart(8, 9);  // Initializes line 8 as RX and line 9 as TX for
-                            // SCPI communication via UART
-#endif
+// Enter a MAC address and IP address for your controller below.
+// The IP address will be dependent on your local network:
+byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
+IPAddress ip(192, 168, 1, 177);
+IPAddress server(200, 0, 0, 15);
+
+EthernetClient client;
 
 scpi_rp::SCPIRedPitaya rp;
 
-void setup() {
-  Serial.begin(115200);
+bool isInit = false;
+float value = 0;
 
-#if defined(ARDUINO_ARCH_AVR)
-  uart.begin(RED_PITAYA_UART_RATE);
-  rp.initStream(&uart);
-#elif defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_SAMD) || \
-    defined(ARDUINO_ARCH_SAM)
-  Serial1.begin(RED_PITAYA_UART_RATE);
-  rp.initStream(&Serial1);
-#endif
-
+void acquire() {
   rp.gen.reset();
   rp.gen.wave(scpi_rp::GEN_CH_1, scpi_rp::SINE);
   rp.gen.freq(scpi_rp::GEN_CH_1, 10000);
@@ -116,6 +115,45 @@ void setup() {
     Serial.print(" - ");
     Serial.print(sample, 6);
     Serial.println("");
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  Serial.println("Trying to get an IP address using DHCP");
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+    // Check for Ethernet hardware present
+    if (Ethernet.hardwareStatus() == EthernetNoHardware) {
+      Serial.println(
+          "Ethernet shield was not found.  Sorry, can't run without "
+          "hardware. ");
+      while (true) {
+        delay(1);  // do nothing, no point running without Ethernet hardware
+      }
+    }
+    if (Ethernet.linkStatus() == LinkOFF) {
+      Serial.println("Ethernet cable is not connected.");
+    }
+    // initialize the Ethernet device not using DHCP:
+    Ethernet.begin(mac, ip);
+  }
+  Serial.print("DHCP IP address: ");
+  Serial.println(Ethernet.localIP());
+
+  delay(1000);
+  Serial.println("connecting...");
+
+  // if you get a connection, report back via serial:
+  if (client.connect(server, 5000)) {
+    Serial.println("connected");
+    rp.initStream(&client);
+    acquire();
+    client.stop();
+  } else {
+    // if you didn't get a connection to the server:
+    Serial.println("connection failed");
   }
 }
 

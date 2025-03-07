@@ -12,7 +12,7 @@
 #include "SCPI_RP.h"
 
 #include "common/base_io.h"
-#include "uart/uart.h"
+#include "uart/uart_scpi.h"
 
 using namespace scpi_rp;
 
@@ -22,7 +22,7 @@ SCPIRedPitaya::SCPIRedPitaya() {}
 
 SCPIRedPitaya::~SCPIRedPitaya() { delete g_base_io; }
 
-void SCPIRedPitaya::initUARTStream(Stream *serial) {
+void SCPIRedPitaya::initStream(Stream *serial) {
   UARTInterface *u = new UARTInterface();
   u->init(serial);
   g_base_io = u;
