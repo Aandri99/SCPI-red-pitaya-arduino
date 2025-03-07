@@ -1,4 +1,4 @@
-#include "uart.h"
+#include "uart_scpi.h"
 
 #include <stdio.h>
 #include <string.h>

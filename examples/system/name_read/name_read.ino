@@ -26,11 +26,11 @@ void setup() {
 
 #if defined(ARDUINO_ARCH_AVR)
   uart.begin(RED_PITAYA_UART_RATE);
-  rp.initUARTStream(&uart);
+  rp.initStream(&uart);
 #elif defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_SAMD) || \
     defined(ARDUINO_ARCH_SAM)
   Serial1.begin(RED_PITAYA_UART_RATE);
-  rp.initUARTStream(&Serial1);
+  rp.initStream(&Serial1);
 #endif
 
   char name[BUFF_SIZE];
