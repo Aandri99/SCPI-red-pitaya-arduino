@@ -1,4 +1,4 @@
-#include "wifi/SCPI_RP_WiFi.h"
+#include "SCPI_RP_WiFi.h"
 
 #include <Arduino.h>
 
