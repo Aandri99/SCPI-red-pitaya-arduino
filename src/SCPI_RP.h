@@ -40,6 +40,13 @@ class SCPIRedPitaya {
    */
   void initStream(Stream *serial);
 
+  /*!
+   * Initialize SCPI communication over a network socket.
+   *
+   * @param serial Stream representing the socket connection.
+   */
+  void initSocket(Stream *serial);
+
   SCPIAio aio;
   SCPIDaisy daisy;
   SCPIDio dio;
