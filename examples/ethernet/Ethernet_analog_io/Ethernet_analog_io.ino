@@ -59,7 +59,7 @@ void setup() {
   // if you get a connection, report back via serial:
   if (client.connect(server, 5000)) {
     Serial.println("connected");
-    rp.initStream(&client);
+    rp.initSocket(&client);
     isInit = true;
   } else {
     // if you didn't get a connection to the server:

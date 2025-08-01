@@ -3,16 +3,13 @@
 #include "SCPI_RP.h"
 #include "arduino_secrets.h"  // defines SECRET_SSID & SECRET_PASS
 
-// Forward‐declare your full acquisition routine
-void acquire();
-
-// SCPI + WiFi client objects
 scpi_rp::SCPIRedPitaya rp;
 WiFiClient client;
-uint8_t led_state = 1;
-// Red Pitaya’s IP & port (update as needed)
 IPAddress server(192, 168, 0, 17);
 const uint16_t serverPort = 5000;
+
+bool isInit = false;
+float value = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -61,24 +58,28 @@ void setup() {
   }
   Serial.println("✅ TCP connected!");
 
-  // ————— RUN YOUR SCPI STREAM + ACQUIRE —————
   rp.initSocket(&client);
-  acquire();
-
-  client.stop();
-  Serial.println("All done.");
+  isInit = true;
 }
 
 void loop() {
-  // nothing left to do
-  delay(1000);
-}
-
-// ————— Original acquisition routine, verbatim —————
-void acquire() {
-  rp.dio.state((scpi_rp::EDIOPin)(led_state), 1);
-  delay(1000);
-  rp.dio.state((scpi_rp::EDIOPin)(led_state), 0);
-  led_state++;
-  if (led_state == 8) led_state = 0;
+  if (isInit) {
+    float in_value = 0;
+    if ((value * 10) > 18) value = 0;
+    if (!rp.aio.state(scpi_rp::AOUT_0, value)) {
+      Serial.println("Error set value");
+    }
+    if (!rp.aio.stateQ(scpi_rp::AOUT_0, &in_value)) {
+      Serial.println("Error get value");
+    }
+    Serial.print("AOUT_0 value = ");
+    Serial.println(in_value);
+    if (!rp.aio.stateQ(scpi_rp::AIN_0, &in_value)) {
+      Serial.println("Error get value");
+    }
+    Serial.print("AIN_0 value = ");
+    Serial.println(in_value);
+    delay(1000);
+    value += 0.1;
+  }
 }

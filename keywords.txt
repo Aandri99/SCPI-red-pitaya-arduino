@@ -20,3 +20,4 @@ BaseIO KEYWORD1
 
 initStream	KEYWORD2
 
+initSocket      KEYWORD2
