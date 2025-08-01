@@ -53,16 +53,16 @@ void acquire() {
     Serial.println(hysteresis);
   }
 
-  uint32_t decimation = 123;
-  if (!rp.acq.settings.decimationFactor(decimation)) {
+  scpi_rp::EACQDecimation decimation = scpi_rp::ACQ_DEC_1;
+  if (!rp.acq.settings.decimation(decimation)) {
     Serial.println("Error set decimation");
   }
 
-  if (!rp.acq.settings.decimationFactorQ(&decimation)) {
+  if (!rp.acq.settings.decimationQ(&decimation)) {
     Serial.println("Error get decimation");
   } else {
     Serial.print("Decimation = ");
-    Serial.println(decimation);
+    Serial.println((uint32_t)decimation);
   }
 
   if (!rp.acq.control.start()) {
