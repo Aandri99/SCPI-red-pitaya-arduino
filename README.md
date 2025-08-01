@@ -30,6 +30,7 @@ All text above must be included in any redistribution
 To install, use the Arduino Library Manager and search for "SCPI Red Pitaya" and install the library.
 
 ## WiFi helper
+Boards using the WiFiS3 library, such as the Arduino UNO R4 WiFi, are supported.
 You can now connect to a Red Pitaya over Wi‑Fi using `SCPIRPWiFi`. Provide your Wi‑Fi credentials and the Red Pitaya address:
 ```cpp
 #include <SCPI_RP_WiFi.h>
@@ -51,3 +52,6 @@ void setup() {
   Serial.println("Connected");
 }
 ```
+
+See the sketches in the examples/wifi directory for complete usage, including WiFi_analog_io.
+

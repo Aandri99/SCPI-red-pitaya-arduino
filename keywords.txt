@@ -13,6 +13,7 @@ ESYSLog	KEYWORD1
 SCPISystem	KEYWORD1
 Value KEYWORD1
 BaseIO KEYWORD1
+SCPIRPWiFi    KEYWORD1
 
 ###########################################
 # Methods and Functions (KEYWORD2)
