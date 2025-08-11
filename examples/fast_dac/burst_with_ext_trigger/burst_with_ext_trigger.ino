@@ -21,7 +21,6 @@ scpi_rp::SCPIRedPitaya rp;
 WiFiClient client;
 
 void setup() {
-  // Initializing console output
   Serial.begin(115200);
   WiFi.begin(SSID, PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
