@@ -7,29 +7,33 @@
 // https://github.com/RedPitaya/SCPI-red-pitaya-arduino
 
 #include <Arduino.h>
+#include <WiFi.h>
 
 #include "SCPI_RP.h"
 
-#if defined(ARDUINO_ARCH_AVR)
-#include <SoftwareSerial.h>
-SoftwareSerial uart(8, 9);  // Initializes line 8 as RX and line 9 as TX for
-                            // SCPI communication via UART
-#endif
+const char *SSID = "YOUR_SSID";
+const char *PASSWORD = "YOUR_PASSWORD";
+IPAddress server(192, 168, 0, 17);
+const uint16_t serverPort = 5000;
 
 scpi_rp::SCPIRedPitaya rp;
+WiFiClient client;
 
 void setup() {
   // Initializing console output
   Serial.begin(115200);
+  WiFi.begin(SSID, PASSWORD);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+  }
 
-#if defined(ARDUINO_ARCH_AVR)
-  uart.begin(RED_PITAYA_UART_RATE);
-  rp.initStream(&uart);
-#elif defined(ARDUINO_ARCH_ESP32) || defined(ARDUINO_ARCH_SAMD) || \
-    defined(ARDUINO_ARCH_SAM)
-  Serial1.begin(RED_PITAYA_UART_RATE);
-  rp.initStream(&Serial1);
-#endif
+  if (!client.connect(server, serverPort)) {
+    while (true) {
+      delay(1000);
+    }
+  }
+
+  rp.initSocket(&client);
 
   if (!rp.gen.reset()) {
     Serial.println("Error reset");
