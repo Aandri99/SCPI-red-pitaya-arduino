@@ -16,6 +16,11 @@ jobs:
          repository: adafruit/ci-arduino
          path: ci
 
+    - name: Install arduino-cli
+      run: |
+        curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+        sudo mv bin/arduino-cli /usr/local/bin
+
     - name: Install WiFiS3 library
       run: |
         arduino-cli lib install "WiFiS3"
