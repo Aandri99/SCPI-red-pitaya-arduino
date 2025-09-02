@@ -16,6 +16,10 @@ jobs:
          repository: adafruit/ci-arduino
          path: ci
 
+    - name: Install WiFiS3 library
+      run: |
+        arduino-cli lib install "WiFiS3"
+
     - name: pre-install
       run: bash ci/actions_install.sh
 
