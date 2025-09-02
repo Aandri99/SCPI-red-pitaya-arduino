@@ -1,0 +1,46 @@
+/* UNO R4 WiFi → Red Pitaya (SCPI)
+   acquire_full_buffer_raw: force trigger and read full buffer as RAW ASCII codes
+*/
+#include "wifiSCPI.h"
+#include "arduino_secrets.h"   // WiFi + Red Pitaya settings
+
+
+WifiSCPI rp;
+
+void printFirst(const String& blk, uint8_t n=12){
+  int l=blk.indexOf('{'), r=blk.lastIndexOf('}');
+  if(l<0||r<=l){ Serial.println(blk); return; }
+  String b=blk.substring(l+1,r);
+  int st=0,c=0;
+  Serial.println(F("First RAW samples:"));
+  while(c<n){
+    int k=b.indexOf(',',st);
+    String t=(k==-1)?b.substring(st):b.substring(st,k);
+    t.trim();
+    if(t.length()){ Serial.println(t); c++; }
+    if(k==-1) break;
+    st=k+1;
+  }
+}
+
+void setup(){
+  Serial.begin(115200);
+  delay(200);
+  rp.begin(SECRET_SSID, SECRET_PASS, SECRET_RP_IP, SECRET_RP_PORT);
+
+  rp.scpi("ACQ:RST");
+  rp.scpi("ACQ:DEC:Factor 1");
+  rp.scpi("ACQ:DATA:FORMAT ASCII");
+  rp.scpi("ACQ:DATA:UNITS RAW");   // ADC codes
+  rp.scpi("ACQ:TRig:DLY 0");
+
+  rp.scpi("ACQ:START");
+  delay(300);
+  rp.scpi("ACQ:TRig NOW");
+
+  while(rp.scpiLine("ACQ:TRig:FILL?")!="1") delay(10);
+  printFirst(rp.scpiBlock("ACQ:SOUR1:DATA?"));
+  Serial.println("Done.");
+}
+
+void loop(){}
